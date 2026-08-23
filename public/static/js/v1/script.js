@@ -1,0 +1,2 @@
+document.querySelectorAll('[data-inquiry]').forEach((form)=>{form.addEventListener('submit',(event)=>{event.preventDefault();const data=new FormData(form);const series=form.dataset.series||'피스톤 펌프';const body=[`${series} 기술 문의`,'',`회사명: ${data.get('company')}`,`담당자: ${data.get('name')}`,`연락처: ${data.get('phone')}`,`이메일: ${data.get('email')}`,'','문의 내용:',String(data.get('message')||'')].join('\n');location.href=`mailto:tokimec@tokimec.co.kr?subject=${encodeURIComponent(`[${series}] 기술 문의`)}&body=${encodeURIComponent(body)}`})});
+// HTML v1 interactions\n
