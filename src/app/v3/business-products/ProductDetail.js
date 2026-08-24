@@ -8,6 +8,17 @@ const pvModels = [
 
 const phModels = [['PH80', '80', '51'], ['PH100', '100', '70'], ['PH130', '130', '95']];
 
+const phModelCodeGroups = [
+  [['1', 'PH100']],
+  [['2', 'M'], ['3', 'S'], ['4', '(*)']],
+  [['5', '(F)'], ['6', 'Y'], ['7', 'R']],
+  [['8', '20']],
+  [['9', 'CH']],
+  [['10', '(D)']],
+  [['11', '10']],
+  [['12', '(S38)']],
+];
+
 const phCodeItems = [
   ['1', '펌프 시리즈', 'PH 시리즈 사판식 가변용량형 피스톤 펌프', 'PH80 · PH100 · PH130'],
   ['2', '포트 사양', 'M : 표준', ''],
@@ -27,7 +38,7 @@ const thClass = 'border border-[#cfdade] bg-[#eef6f8] px-3 py-3 font-extrabold l
 const tdClass = 'border border-[#d7e0e3] px-3 py-[11px] font-semibold';
 
 function TechnicalFigure({ src, alt, label, className = '' }) {
-  return <figure className={`m-0 flex min-h-[260px] flex-col border border-[#e0e7e9] bg-[#f7fafb] ${className}`}>
+  return <figure className={`m-0 flex min-h-[260px] min-w-0 flex-col border border-[#e0e7e9] bg-[#f7fafb] ${className}`}>
     <div className="grid flex-1 place-items-center p-[clamp(20px,3vw,34px)]"><img className="max-h-[300px] w-full object-contain mix-blend-multiply" src={src} alt={alt} /></div>
     <figcaption className="border-t border-[#e0e7e9] bg-white px-5 py-3 text-[11px] font-extrabold tracking-[.08em] text-[#6f7e85]">{label}</figcaption>
   </figure>;
@@ -41,7 +52,7 @@ function SectionTitle({ eyebrow, title, description }) {
 }
 
 function PvTechnicalDetails() {
-  return <section className="col-span-full mt-20 border-t border-[#cbd6da] pt-16 max-[760px]:mt-14 max-[760px]:pt-11">
+  return <section className="col-span-full mt-20 min-w-0 border-t border-[#cbd6da] pt-16 max-[760px]:mt-14 max-[760px]:pt-11">
     <SectionTitle eyebrow="STRUCTURE & SPECIFICATIONS" title="P**V 시리즈 구조와 주요 사양" description="카탈로그의 설명과 사양표를 웹 화면에서 바로 확인할 수 있도록 구성했습니다. 제품 사진과 단면도는 원본 기술 자료를 사용했습니다." />
     <div className="grid grid-cols-12 gap-5">
       <TechnicalFigure className="col-span-4 max-[760px]:col-span-12" src="/product-details/pv-product.png" alt="P**V 시리즈 피스톤 펌프 제품" label="P**V SERIES / PRODUCT" />
@@ -58,7 +69,7 @@ function PvTechnicalDetails() {
 }
 
 function PvSpecification() {
-  return <section className="mt-16">
+  return <section className="mt-16 min-w-0">
     <SpecHeader />
     <div className="grid grid-cols-[1.2fr_.8fr] gap-7 max-[900px]:grid-cols-1">
       <div className="overflow-x-auto">
@@ -82,7 +93,7 @@ function SpecHeader() {
 }
 
 function PhTechnicalDetails() {
-  return <section className="col-span-full mt-20 border-t border-[#cbd6da] pt-16 max-[760px]:mt-14 max-[760px]:pt-11">
+  return <section className="col-span-full mt-20 min-w-0 border-t border-[#cbd6da] pt-16 max-[760px]:mt-14 max-[760px]:pt-11">
     <SectionTitle eyebrow="STRUCTURE, MODEL CODE & SPECIFICATIONS" title="PH 시리즈 형식과 주요 사양" description="제품 구조, 형식 기호의 의미와 모델별 사양을 카탈로그를 열지 않고도 확인할 수 있습니다." />
     <div className="grid grid-cols-12 gap-5">
       <TechnicalFigure className="col-span-4 max-[760px]:col-span-12" src="/product-details/ph-product.png" alt="PH 시리즈 피스톤 펌프 제품" label="PH SERIES / PRODUCT" />
@@ -96,15 +107,34 @@ function PhTechnicalDetails() {
 }
 
 function PhModelCode() {
-  return <section className="mt-16">
+  return <section className="mt-16 min-w-0">
     <div className="bg-[#129fbe] px-5 py-3 text-sm font-extrabold tracking-[.08em] text-white">형식 / MODEL CODE</div>
-    <div className="border-x border-b border-[#d9e2e5] bg-[#f8fbfc] px-[clamp(20px,4vw,42px)] py-8"><p className="m-0 overflow-x-auto whitespace-nowrap font-mono text-[clamp(19px,2.6vw,31px)] tracking-[.015em] text-[#1d3039]">PH100-MS(*)-(F)YR-20-CH-(D)-10-(S38)</p><p className="mb-0 mt-3 text-xs text-[#74838a]">각 번호는 아래 선택 항목과 대응합니다. 실제 형식 선정은 운전 조건에 따라 기술 검토가 필요합니다.</p></div>
+    <div className="min-w-0 border-x border-b border-[#d9e2e5] bg-[#f8fbfc] px-[clamp(20px,4vw,42px)] py-8">
+      <div className="flex flex-wrap items-start gap-y-4 font-mono text-[clamp(19px,2.6vw,31px)] tracking-[.015em] text-[#1d3039] max-[760px]:text-[18px]" aria-label="PH100-MS(*)-(F)YR-20-CH-(D)-10-(S38) 형식 기호 번호 안내">
+        {phModelCodeGroups.map((group, groupIndex) => <span className="inline-flex shrink-0 items-start" key={groupIndex}>
+          {group.map(([number, code]) => <span className="inline-flex flex-col items-center" key={number}><span className="leading-none">{code}</span><b className="mt-2 grid h-5 min-w-5 place-items-center bg-[#123a52] px-1 font-sans text-[10px] leading-none text-white">{number}</b></span>)}
+          {groupIndex < phModelCodeGroups.length - 1 && <span className="px-1 leading-none" aria-hidden="true">-</span>}
+        </span>)}
+      </div>
+      <p className="mb-0 mt-4 text-xs text-[#74838a]">위 번호는 아래 선택 항목과 대응합니다. 실제 형식 선정은 운전 조건에 따라 기술 검토가 필요합니다.</p>
+    </div>
     <div className="grid grid-cols-2 border-x border-[#d9e2e5] max-[760px]:grid-cols-1">{phCodeItems.map(([number, title, primary, secondary]) => <article className="grid min-h-[126px] grid-cols-[44px_1fr] gap-4 border-b border-[#d9e2e5] p-5 odd:border-r max-[760px]:odd:border-r-0" key={number}><span className="grid h-8 min-w-8 place-items-center self-start bg-[#123a52] px-1 text-[11px] font-extrabold text-white">{number}</span><div><h5 className="m-0 text-sm text-[#2c424d]">{title}</h5><p className="mb-0 mt-2 text-[13px] font-semibold leading-[1.65] text-[#52656f]">{primary}</p>{secondary && <p className="mb-0 mt-1 text-xs leading-[1.6] text-[#7b888e]">{secondary}</p>}</div></article>)}</div>
   </section>;
 }
 
 function PhSpecification() {
-  return <section className="mt-16"><SpecHeader /><div className="overflow-x-auto"><table className={tableClass}><caption className="sr-only">PH 시리즈 표준 사양</caption><thead><tr><th className={thClass} scope="col">형식</th><th className={thClass} scope="col">최대 이론용적<br /><small>cm³/rev</small></th><th className={thClass} scope="col">사용압력<br /><small>MPa</small></th><th className={thClass} scope="col">최고 회전수<br /><small>min⁻¹</small></th><th className={thClass} scope="col">최저 회전수<br /><small>min⁻¹</small></th><th className={thClass} scope="col">무게<br /><small>kg</small></th></tr></thead><tbody>{phModels.map(([model, displacement, weight], index) => <tr key={model}><th className={`${tdClass} bg-white text-[#1163a2]`} scope="row">{model}</th><td className={tdClass}>{displacement}</td>{index === 0 && <><td className={tdClass} rowSpan={phModels.length}>정격 28<br />간헐 30</td><td className={tdClass} rowSpan={phModels.length}>1,800</td><td className={tdClass} rowSpan={phModels.length}>600</td></>}<td className={tdClass}>{weight}</td></tr>)}</tbody></table></div><ul className="mb-0 mt-5 grid gap-2 pl-5 text-xs leading-[1.65] text-[#6d7b82]"><li>간헐압력은 운전 사이클의 10% 이하, 최대 6초간 적용 가능한 압력입니다. 정격 사용압력을 넘는 조건은 별도 검토가 필요합니다.</li><li>전기 다이렉트 제어 EDHS형의 정격압력은 21 MPa이며 안전밸브 설정으로 규정됩니다.</li><li>무게는 대형 압력보상제어 밸브 적용 시의 수치입니다. 물·글리콜계 작동유는 별도 문의해 주십시오.</li></ul></section>;
+  return <section className="mt-16 min-w-0"><SpecHeader />
+    <div className="min-w-0 max-w-full overflow-x-auto max-[760px]:hidden"><table className={tableClass}><caption className="sr-only">PH 시리즈 표준 사양</caption><thead><tr><th className={thClass} scope="col">형식</th><th className={thClass} scope="col">최대 이론용적<br /><small>cm³/rev</small></th><th className={thClass} scope="col">사용압력<br /><small>MPa</small></th><th className={thClass} scope="col">최고 회전수<br /><small>min⁻¹</small></th><th className={thClass} scope="col">최저 회전수<br /><small>min⁻¹</small></th><th className={thClass} scope="col">무게<br /><small>kg</small></th></tr></thead><tbody>{phModels.map(([model, displacement, weight], index) => <tr key={model}><th className={`${tdClass} bg-white text-[#1163a2]`} scope="row">{model}</th><td className={tdClass}>{displacement}</td>{index === 0 && <><td className={tdClass} rowSpan={phModels.length}>정격 28<br />간헐 30</td><td className={tdClass} rowSpan={phModels.length}>1,800</td><td className={tdClass} rowSpan={phModels.length}>600</td></>}<td className={tdClass}>{weight}</td></tr>)}</tbody></table></div>
+    <div className="hidden gap-3 max-[760px]:grid" aria-label="PH 시리즈 모바일 사양">
+      {phModels.map(([model, displacement, weight]) => <article className="overflow-hidden border border-[#d7e0e3] bg-white" key={model}>
+        <header className="flex items-center justify-between bg-[#eef6f8] px-4 py-3"><strong className="text-[15px] text-[#1163a2]">{model}</strong><span className="text-xs font-bold text-[#536a75]">{displacement} cm³/rev</span></header>
+        <dl className="m-0 grid grid-cols-2 text-xs">
+          {[['사용압력', '정격 28 / 간헐 30 MPa'], ['최고 회전수', '1,800 min⁻¹'], ['최저 회전수', '600 min⁻¹'], ['무게', `${weight} kg`]].map(([label, value]) => <div className="border-t border-[#e1e7e9] p-3 even:border-l" key={label}><dt className="mb-1 text-[11px] text-[#7a8990]">{label}</dt><dd className="m-0 break-keep font-bold leading-[1.45] text-[#344750]">{value}</dd></div>)}
+        </dl>
+      </article>)}
+    </div>
+    <ul className="mb-0 mt-5 grid gap-2 pl-5 text-xs leading-[1.65] text-[#6d7b82]"><li>간헐압력은 운전 사이클의 10% 이하, 최대 6초간 적용 가능한 압력입니다. 정격 사용압력을 넘는 조건은 별도 검토가 필요합니다.</li><li>전기 다이렉트 제어 EDHS형의 정격압력은 21 MPa이며 안전밸브 설정으로 규정됩니다.</li><li>무게는 대형 압력보상제어 밸브 적용 시의 수치입니다. 물·글리콜계 작동유는 별도 문의해 주십시오.</li></ul>
+  </section>;
 }
 
 function ProductTechnicalDetails({ pump }) {
@@ -116,7 +146,7 @@ export default function ProductDetail({ pump }) {
     <V3Header active="business" /><main><SubHero trail="유압기기 › 피스톤 펌프" />
       <section className="mx-auto grid max-w-[1180px] grid-cols-[220px_1fr] gap-[clamp(45px,8vw,125px)] pb-[130px] pt-[86px] max-[760px]:grid-cols-1 max-[760px]:gap-[45px] max-[760px]:px-5 max-[760px]:pb-20 max-[760px]:pt-0">
         <BusinessSide />
-        <article className="relative grid w-full grid-cols-[1.04fr_.96fr] border-t border-[#9eabb2] pt-[70px] max-[760px]:grid-cols-1 max-[760px]:pt-[57px]">
+        <article className="relative grid min-w-0 w-full grid-cols-[1.04fr_.96fr] border-t border-[#9eabb2] pt-[70px] max-[760px]:grid-cols-1 max-[760px]:pt-[57px]">
           <div className="absolute left-0 top-[23px] text-[13px] font-extrabold tracking-[.08em] text-[#b8c4ca]">PRODUCT DETAIL</div>
           <div className="pr-[55px] max-[760px]:p-0"><a className="mb-6 mt-[-10px] inline-block text-xs font-bold text-[#7b8a92]" href="/v3/business-products#piston-pump">← 피스톤 펌프 목록</a><p className="m-0 text-[11px] font-extrabold tracking-[.14em] text-[#1163a2]">{pump.series} SERIES</p><h2 className="mb-[11px] mt-[17px] break-keep text-[clamp(29px,3.1vw,43px)] leading-[1.18] tracking-[-.08em] max-[760px]:text-[34px]">{pump.name}</h2><span className="text-[13px] tracking-normal text-[#718089]">{pump.english}</span><p className="my-7 break-keep text-[15px] leading-[1.75] text-[#576872]">{pump.description}</p><dl className="m-0 border-t border-[#e5e7e8]">{[['사용압력', pump.pressure], ['최대 이론용적', pump.volume], ['모델', pump.models]].map(([label, value]) => <div className="grid grid-cols-[125px_1fr] gap-3 border-b border-[#e5e7e8] py-[13px]" key={label}><dt className="text-xs text-[#829099]">{label}</dt><dd className="m-0 text-[13px] font-bold leading-[1.45] text-[#41535e]">{value}</dd></div>)}</dl><a className="mt-[29px] inline-flex gap-[47px] border-b border-[#2f3e46] py-[14px] text-[13px] font-extrabold" href={`mailto:tokimec@tokimec.co.kr?subject=${encodeURIComponent(`[${pump.series} 시리즈] 기술 문의`)}`}>기술 문의하기 <b className="text-[#1163a2]">→</b></a></div>
           <div className="grid min-h-[352px] place-items-center bg-[linear-gradient(130deg,#eff4f5,#dbe6e9)] p-[35px] max-[760px]:mt-[35px] max-[760px]:min-h-[260px] max-[760px]:p-[25px]"><img className="max-h-[290px] w-[min(100%,415px)] object-contain mix-blend-multiply max-[760px]:max-h-[220px]" src={pump.image} alt={`${pump.series} 시리즈 제품`} /></div>
