@@ -27,7 +27,7 @@ function sortResources(resources) {
   });
 }
 
-function ResourceButton({ resource, isHighlighted }) {
+function ResourceButton({ resource, isHighlighted, onRequest }) {
   const label = resource.available
     ? resource.label
     : `${resource.label} 준비중`;
@@ -51,15 +51,79 @@ function ResourceButton({ resource, isHighlighted }) {
   }
 
   return (
-    <a
-      className={`${resourceButtonClass} bg-[#075a9a] text-white shadow-[0_10px_24px_rgba(7,90,154,.3)] hover:-translate-y-0.5 hover:bg-[#064d83] hover:shadow-[0_15px_30px_rgba(7,90,154,.4)] ${isHighlighted ? "relative z-10 -translate-y-1 scale-[1.04] ring-4 ring-[#ffd25a] shadow-[0_16px_34px_rgba(7,90,154,.52)]" : ""}`}
-      download={resource.action === "download" ? true : undefined}
-      href={resource.file}
-      rel={resource.action === "preview" ? "noreferrer" : undefined}
-      target={resource.action === "preview" ? "_blank" : undefined}
+    <button
+      className={`${resourceButtonClass} cursor-pointer bg-[#075a9a] text-left text-white shadow-[0_10px_24px_rgba(7,90,154,.3)] hover:-translate-y-0.5 hover:bg-[#064d83] hover:shadow-[0_15px_30px_rgba(7,90,154,.4)] ${isHighlighted ? "relative z-10 -translate-y-1 scale-[1.04] ring-4 ring-[#ffd25a] shadow-[0_16px_34px_rgba(7,90,154,.52)]" : ""}`}
+      onClick={() => onRequest(resource)}
+      type="button"
     >
       {content}
-    </a>
+    </button>
+  );
+}
+
+function ResourceUseModal({ resource, onClose, onConfirm }) {
+  if (!resource) return null;
+
+  const actionLabel = resource.action === "download" ? "다운로드" : "새 창에서 열기";
+
+  return (
+    <div
+      aria-labelledby="resource-use-title"
+      aria-modal="true"
+      className="fixed inset-0 z-50 grid place-items-center p-5 max-[760px]:items-end max-[760px]:p-0"
+      role="dialog"
+    >
+      <button
+        aria-label="자료 이용 안내 닫기"
+        className="absolute inset-0 cursor-default bg-[#082438]/[.58] backdrop-blur-[2px]"
+        onClick={onClose}
+        type="button"
+      />
+      <section className="relative z-10 w-full max-w-[700px] overflow-hidden bg-white shadow-[0_26px_70px_rgba(4,27,42,.35)] max-[760px]:max-w-none">
+        <header className="border-b border-[#c8e5ed] bg-[linear-gradient(110deg,#dbf5f8,#bde9f0)] px-[clamp(28px,5vw,52px)] py-[clamp(26px,4vw,39px)]">
+          <p className="m-0 text-[11px] font-extrabold tracking-[.14em] text-[#147ea9]">
+            DOCUMENT ACCESS
+          </p>
+          <h2
+            className="mb-0 mt-3 text-[clamp(28px,3.2vw,38px)] tracking-[-.065em] text-[#173550]"
+            id="resource-use-title"
+          >
+            자료 이용 안내
+          </h2>
+          <p className="mb-0 mt-3 text-sm font-bold text-[#3e7188]">
+            {resource.label} 자료를 {actionLabel} 전에 확인해 주세요.
+          </p>
+        </header>
+        <div className="px-[clamp(28px,5vw,52px)] py-[clamp(28px,5vw,46px)]">
+          <ul className="m-0 grid gap-4 pl-5 break-keep text-[15px] font-semibold leading-[1.75] text-[#314b5c] marker:text-[#147ea9] max-[760px]:gap-3 max-[760px]:text-sm">
+            <li>본 자료의 저작권은 한국도키멕 주식회사가 보유합니다.</li>
+            <li>무단 복제, 배포, 판매 등의 2차 이용은 금지되어 있습니다.</li>
+            <li>
+              카탈로그에 기재된 사양 및 특성은 일정 조건 하에서의 대표 성능이며,
+              모든 조건하에서의 동작을 보증하는 것은 아닙니다.
+            </li>
+            <li>제품마다 기기 차이로 인해 다소 변동이 있을 수 있습니다.</li>
+          </ul>
+        </div>
+        <footer className="flex items-center justify-end gap-3 border-t border-[#dbe7eb] bg-[#f7fafb] px-[clamp(28px,5vw,52px)] py-5 max-[760px]:grid max-[760px]:grid-cols-2">
+          <button
+            className="min-h-11 border border-[#afc1c9] px-5 text-sm font-extrabold text-[#58717e] transition hover:border-[#7894a1] hover:text-[#173550] cursor-pointer"
+            onClick={onClose}
+            type="button"
+          >
+            취소
+          </button>
+          <button
+            autoFocus
+            className="min-h-11 bg-[#075a9a] px-5 text-sm font-extrabold text-white shadow-[0_8px_18px_rgba(7,90,154,.24)] transition hover:-translate-y-0.5 hover:bg-[#064d83] cursor-pointer"
+            onClick={onConfirm}
+            type="button"
+          >
+            확인 후 {actionLabel} ↗
+          </button>
+        </footer>
+      </section>
+    </div>
   );
 }
 
@@ -292,6 +356,7 @@ function KeyHighlights({ highlights }) {
 export default function ProductPage({ product }) {
   const orderedResources = sortResources(product.resources);
   const [isResourceHighlighted, setIsResourceHighlighted] = useState(false);
+  const [selectedResource, setSelectedResource] = useState(null);
   const resourceHighlightTimer = useRef(null);
 
   useEffect(
@@ -302,6 +367,50 @@ export default function ProductPage({ product }) {
     },
     [],
   );
+
+  useEffect(() => {
+    if (!selectedResource) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setSelectedResource(null);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [selectedResource]);
+
+  function openResourceModal(resource) {
+    setSelectedResource(resource);
+  }
+
+  function confirmResourceUse() {
+    if (!selectedResource?.file) {
+      setSelectedResource(null);
+      return;
+    }
+
+    const resourceLink = document.createElement("a");
+    resourceLink.href = selectedResource.file;
+
+    if (selectedResource.action === "download") {
+      resourceLink.download = "";
+    } else {
+      resourceLink.target = "_blank";
+      resourceLink.rel = "noreferrer";
+    }
+
+    document.body.appendChild(resourceLink);
+    resourceLink.click();
+    resourceLink.remove();
+
+    setSelectedResource(null);
+  }
 
   function showResourceButtons() {
     const topSection = document.getElementById("top");
@@ -394,6 +503,7 @@ export default function ProductPage({ product }) {
               <ResourceButton
                 isHighlighted={isResourceHighlighted && resource.available}
                 key={resource.key}
+                onRequest={openResourceModal}
                 resource={resource}
               />
             ))}
@@ -493,6 +603,12 @@ export default function ProductPage({ product }) {
           기술 자료 버튼에서 확인할 수 있습니다.
         </p>
       </footer>
+
+      <ResourceUseModal
+        onClose={() => setSelectedResource(null)}
+        onConfirm={confirmResourceUse}
+        resource={selectedResource}
+      />
     </main>
   );
 }
