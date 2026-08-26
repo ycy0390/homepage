@@ -1,11 +1,120 @@
-import ProductPage from '../components/ProductPage';
+import ProductPage from "../components/ProductPage";
 
 const product = {
-  series: 'PH', headline: <>저소음고압<br />가변용량형 피스톤 펌프</>, englishTitle: 'Low noise, high pressure variable displacement piston pumps',
-  lead: '고압 유압 회로에 대응하는 PH 시리즈입니다.\nPH80, PH100, PH130의 세 가지 용적을 선택할 수 있습니다.', image: '/piston-pump-ph-series.png', imageAlt: 'PH 시리즈 저소음고압 가변용량형 피스톤 펌프', visualCaption: 'High pressure\nPiston pump',
-  pressureLabel: '사용압력', pressure: '정격 28 / 최고 30 MPa', volume: '80 - 130 cm³/rev', pages: '11', size: '1.8 MB', overviewTitle: <>고압 환경을 위한<br />안정적인 유압 펌프</>, overview: 'PH 시리즈는 고압 조건에 대응하는 저소음 가변용량형 피스톤 펌프입니다. 적용 장비의 압력·유량·회로 조건을 바탕으로 적합한 모델과 제어 방식을 검토합니다.',
-  features: [['01', '고압 대응', '정격 28 MPa, 최고 30 MPa 조건에 대응합니다.'], ['02', '저소음 설계', '장비 환경의 소음 부담을 낮추는 설계입니다.'], ['03', '모델 선택', 'PH80·PH100·PH130의 용적을 선택할 수 있습니다.']], models: [['PH80', '80 cm³/rev'], ['PH100', '100 cm³/rev'], ['PH130', '130 cm³/rev']],
-  sideNote: '정격 28 MPa / 최고 30 MPa\n최고 회전수 1,800 min⁻¹', catalog: '/catalogs/ph-series-piston-pumps.pdf', catalogCopy: 'PH80, PH100, PH130의 형식, 사용상 주의사항, 모델별 사양을 11페이지로 확인할 수 있습니다.', relatedHref: '/', relatedLabel: '저소음 P**V 시리즈 보기',
+  series: "PH",
+  headline: (
+    <>
+      저소음고압
+      <br />
+      가변용량형 피스톤 펌프
+    </>
+  ),
+  englishTitle: "Low noise, high pressure variable displacement piston pumps",
+  lead: "PH 시리즈의 제품별 기술 자료와 기본 사양을 빠르게 확인할 수 있습니다.",
+  image: "/product-details/ph-product.png",
+  imageAlt: "PH 시리즈 저소음고압 가변용량형 피스톤 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "High pressure\nPiston pump",
+  technicalProductImage: "/product-details/ph-product.png",
+  structureImage: "/product-details/ph-section.png",
+  symbolImage: "/product-details/ph-symbol.png",
+  technicalTitle: "저소음과 고압 운전을 위한 PH 시리즈",
+  technicalDescription:
+    "PH 시리즈는 고압 유압 회로에 대응하는 가변용량형 피스톤 펌프입니다. 내부 구조와 유압 심벌, 모델 코드를 함께 제공해 필요한 제어 방식과 사양을 빠르게 검토할 수 있도록 구성했습니다.",
+  highlights: [
+    { label: "사용압력", value: "정격 28 / 최고 30 MPa" },
+    { label: "최고 회전수", value: "1,800 min⁻¹" },
+    { label: "최대 이론용적", value: "80 – 130 cm³/rev" },
+  ],
+  resources: [
+    {
+      key: "catalog",
+      label: "카탈로그",
+      file: "/catalogs/ph-series-piston-pumps.pdf",
+      action: "preview",
+      available: true,
+    },
+    { key: "outline", label: "외관도", action: "preview", available: false },
+    {
+      key: "structure",
+      label: "구조도",
+      file: "/product-details/ph-section.png",
+      action: "preview",
+      available: true,
+    },
+    {
+      key: "manual",
+      label: "취급설명서",
+      action: "preview",
+      available: false,
+    },
+    { key: "2d", label: "2D CAD", action: "download", available: false },
+    { key: "3d", label: "3D CAD", action: "download", available: false },
+  ],
+  specification: {
+    title: "PH 시리즈 표준 사양",
+    columns: [
+      { key: "model", label: "형식" },
+      { key: "displacement", label: "최대 이론용적\ncm³/rev" },
+      { key: "pressure", label: "사용압력\nMPa" },
+      { key: "maximumSpeed", label: "최고 회전수\nmin⁻¹" },
+      { key: "minimumSpeed", label: "최저 회전수\nmin⁻¹" },
+      { key: "weight", label: "무게\nkg" },
+    ],
+    rows: [
+      ["PH80", "80", "정격 28 / 간헐 30", "1,800", "600", "51"],
+      ["PH100", "100", "정격 28 / 간헐 30", "1,800", "600", "70"],
+      ["PH130", "130", "정격 28 / 간헐 30", "1,800", "600", "95"],
+    ].map(([model, displacement, pressure, maximumSpeed, minimumSpeed, weight]) => ({
+      model,
+      displacement,
+      pressure,
+      maximumSpeed,
+      minimumSpeed,
+      weight,
+    })),
+    notes: [
+      "간헐압력은 운전 사이클의 10% 이하, 최대 6초간 적용 가능한 압력입니다.",
+      "전기 다이렉트 제어 EDHS형의 정격압력은 21 MPa입니다.",
+      "물·글리콜계 작동유 적용은 별도 검토가 필요합니다.",
+    ],
+  },
+  modelCode: {
+    example: "PH100-MS(*)-(F)YR-20-CH-(D)-10-(S38)",
+    groups: [
+      [["1", "PH100"]],
+      [
+        ["2", "M"],
+        ["3", "S"],
+        ["4", "(*)"],
+      ],
+      [
+        ["5", "(F)"],
+        ["6", "Y"],
+        ["7", "R"],
+      ],
+      [["8", "20"]],
+      [["9", "CH"]],
+      [["10", "(D)"]],
+      [["11", "10"]],
+      [["12", "(S38)"]],
+    ],
+    items: [
+      ["1", "펌프 시리즈", "PH80 · PH100 · PH130"],
+      ["2", "포트 사양", "M : 표준"],
+      ["3·4", "더블 펌프화 코드", "S : 싱글 펌프"],
+      ["5", "펌프 취부방식", "무기호 : 플랜지 취부형 / F : FOOT 취부형"],
+      ["6", "축단형상", "X : SAE 사각키 샤프트 / Y : 롱샤프트"],
+      ["7", "축 회전방향", "R : 우회전 / L : 좌회전"],
+      ["8", "설계 번호", "표준 사양에 따른 설계 번호"],
+      ["9", "펌프 제어방식", "CH · CGH · CVH · TL/TH · EDHS"],
+      ["10", "용적 조정기능", "무기호 : 없음 / D : 있음"],
+      ["11", "펌프 제어 밸브 디자인 번호", "표준 제어 밸브 디자인 번호"],
+      ["12", "관리기호", "S38 : T/L 적용형 / 무기호 : 그 외"],
+    ],
+  },
 };
 
-export default function PhSeriesPage() { return <ProductPage product={product} />; }
+export default function PhSeriesPage() {
+  return <ProductPage product={product} />;
+}

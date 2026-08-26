@@ -1,15 +1,103 @@
-import { V3Footer, V3Header } from '../components';
-import RecruitGallery from './RecruitGallery';
+import { V3Footer, V3Header } from "../components";
+import RecruitGallery from "./RecruitGallery";
 
 const benefits = [
-  ['자녀 학자금 지원', '임직원 자녀의 보육시설(미취학아동), 고등학교, 대학교 학자금을 지원합니다.'], ['경조사 지원', '경조사 발생 시 유급휴가 및 경조금을 지원합니다.'], ['외국어 교육비 지원', '임직원의 어학능력 향상을 위해 교육비를 지원합니다.'], ['어학 및 자격수당 지급', '일정 기준이상의 어학성적 및 회사 지정 자격증을 취득 시 별도의 수당을 지급하고 있습니다.'], ['사내 동호회 지원', '사내 동호회 정기모임을 지원합니다.'], ['우수사원, 장기근속사원 포상', '매년 우수사원 및 장기근속 임직원에 대해 포상금을 지급하고 있습니다.'], ['휴양 시설 운영', '리조트 이용 시 할인 혜택을 제공합니다.'], ['건강검진 지원', '임직원의 건강한 생활을 위한 검진을 지원합니다.'],
+  [
+    "자녀 학자금 지원",
+    "임직원 자녀의 보육시설(미취학아동), 고등학교, 대학교 학자금을 지원합니다.",
+  ],
+  ["경조사 지원", "경조사 발생 시 유급휴가 및 경조금을 지원합니다."],
+  ["외국어 교육비 지원", "임직원의 어학능력 향상을 위해 교육비를 지원합니다."],
+  [
+    "어학 및 자격수당 지급",
+    "일정 기준이상의 어학성적 및 회사 지정 자격증을 취득 시 별도의 수당을 지급하고 있습니다.",
+  ],
+  ["사내 동호회 지원", "사내 동호회 정기모임을 지원합니다."],
+  [
+    "우수사원, 장기근속사원 포상",
+    "매년 우수사원 및 장기근속 임직원에 대해 포상금을 지급하고 있습니다.",
+  ],
+  ["휴양 시설 운영", "리조트 이용 시 할인 혜택을 제공합니다."],
+  ["건강검진 지원", "임직원의 건강한 생활을 위한 검진을 지원합니다."],
 ];
 
 export default function V3RecruitPage() {
-  return <div className="min-h-screen bg-white font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#262d32]"><V3Header active="recruit" /><main className="bg-white">
-    <section className="mx-auto min-h-[302px] w-[min(1235px,calc(100%-60px))] pb-[34px] pt-[52px] max-[760px]:min-h-0 max-[760px]:w-[calc(100%-40px)] max-[760px]:pb-[31px] max-[760px]:pt-11"><h1 className="mb-[29px] text-[19px] font-medium text-[#464646] max-[760px]:mb-[22px] max-[760px]:text-[17px]">인재채용</h1><h2 className="m-0 text-[28px] font-normal leading-[1.55] tracking-[-.075em] text-[#333] max-[760px]:text-2xl">한국도키멕주식회사에서<br />새로운 인재를 찾고 있습니다.</h2><p className="mt-6 max-w-[620px] break-keep text-sm leading-[1.8] text-[#747474] max-[760px]:text-[13px]">일본 최대 유압회사인 TOKIMEC INC.(現 TOKYO KEIKI)이 본사인 한국도키멕주식회사는 자동화기기 전문기업으로 성장하고 있으며 국내 유공압기기의 선두 기업입니다.</p></section>
-    <RecruitGallery />
-    <section className="mx-auto mt-[100px] w-[min(1217px,calc(100%-96px))] pb-[83px] text-center max-[760px]:mt-[70px] max-[760px]:w-[calc(100%-40px)] max-[760px]:pb-[55px]"><h2 className="m-0 text-[22px] font-normal text-[#414141]">채용절차</h2><div className="mx-auto mb-[30px] mt-[50px] grid max-w-[870px] grid-cols-4 max-[760px]:my-6 max-[760px]:grid-cols-2 max-[760px]:gap-y-[27px]">{['서류전형', '면접전형', '채용검진', '최종합격'].map((step, index) => <article className="relative grid place-items-center gap-[11px] after:absolute after:right-[-5px] after:top-[29px] after:h-[10px] after:w-[10px] after:rotate-45 after:border-r after:border-t after:border-[#a7a7a7] last:after:hidden max-[760px]:nth-[2]:after:hidden" key={step}><b className="grid h-[58px] w-[58px] place-items-center rounded-full border border-[#6c6c6c] text-[15px] font-normal text-[#555]">{index + 1}</b><strong className="text-sm font-normal text-[#555]">{step}</strong></article>)}</div><p className="m-0 text-[11px] text-[#8b8b8b] max-[760px]:leading-[1.7]">*면접전형 이후 실무진에서 별도의 실무면접 요청이 있을 수도 있습니다. &nbsp;*각 시기별 인력 소요가 발생할 경우 상시 채용으로 진행하고 있습니다.</p></section>
-    <section className="mx-auto w-[min(1217px,calc(100%-96px))] border-t border-[#eee] pb-[105px] pt-[71px] text-center max-[760px]:w-[calc(100%-40px)] max-[760px]:pb-[65px] max-[760px]:pt-[54px]"><h2 className="m-0 text-[22px] font-normal text-[#414141]">복지제도</h2><div className="mt-[45px] grid grid-cols-4 text-left max-[760px]:mt-8 max-[760px]:grid-cols-2">{benefits.map(([title, body], index) => <article className="min-h-[212px] border border-[#ececec] border-r-0 p-[22px] pt-[25px] nth-[4n]:border-r nth-[n+5]:border-t-0 max-[760px]:min-h-[190px] max-[760px]:p-[14px] max-[760px]:pt-5 max-[760px]:nth-[4n]:border-r-0 max-[760px]:nth-[2n]:border-r max-[760px]:nth-[n+3]:border-t-0" key={title}>{index < 4 && <img className="mx-[-22px] mb-[19px] mt-[-25px] block h-[83px] w-[calc(100%+44px)] object-cover max-[760px]:mx-[-14px] max-[760px]:mb-[14px] max-[760px]:mt-[-20px] max-[760px]:h-[65px] max-[760px]:w-[calc(100%+28px)]" src={`/v3-recruit-benefit-${String(index + 1).padStart(2, '0')}.jpg`} alt="" />}<h3 className="mb-[11px] text-[15px] font-medium text-[#505050] max-[760px]:text-[13px]">{title}</h3><p className="m-0 break-keep text-xs leading-[1.65] text-[#868686] max-[760px]:text-[11px]">{body}</p></article>)}</div></section>
-  </main><V3Footer /></div>;
+  return (
+    <div className="min-h-screen bg-white font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#262d32]">
+      <V3Header active="recruit" />
+      <main className="bg-white">
+        <section className="mx-auto min-h-[302px] w-[min(1235px,calc(100%-60px))] pb-[34px] pt-[52px] max-[760px]:min-h-0 max-[760px]:w-[calc(100%-40px)] max-[760px]:pb-[31px] max-[760px]:pt-11">
+          <h1 className="mb-[29px] text-[19px] font-medium text-[#464646] max-[760px]:mb-[22px] max-[760px]:text-[17px]">
+            인재채용
+          </h1>
+          <h2 className="m-0 text-[28px] font-normal leading-[1.55] tracking-[-.075em] text-[#333] max-[760px]:text-2xl">
+            한국도키멕주식회사에서
+            <br />
+            새로운 인재를 찾고 있습니다.
+          </h2>
+          <p className="mt-6 max-w-[620px] break-keep text-sm leading-[1.8] text-[#747474] max-[760px]:text-[13px]">
+            일본 최대 유압회사인 TOKIMEC INC.(現 TOKYO KEIKI)이 본사인
+            한국도키멕주식회사는 자동화기기 전문기업으로 성장하고 있으며 국내
+            유공압기기의 선두 기업입니다.
+          </p>
+        </section>
+        <RecruitGallery />
+        <section className="mx-auto mt-[100px] w-[min(1217px,calc(100%-96px))] pb-[83px] text-center max-[760px]:mt-[70px] max-[760px]:w-[calc(100%-40px)] max-[760px]:pb-[55px]">
+          <h2 className="m-0 text-[22px] font-normal text-[#414141]">
+            채용절차
+          </h2>
+          <div className="mx-auto mb-[30px] mt-[50px] grid max-w-[870px] grid-cols-4 max-[760px]:my-6 max-[760px]:grid-cols-2 max-[760px]:gap-y-[27px]">
+            {["서류전형", "면접전형", "채용검진", "최종합격"].map(
+              (step, index) => (
+                <article
+                  className="relative grid place-items-center gap-[11px] after:absolute after:right-[-5px] after:top-[29px] after:h-[10px] after:w-[10px] after:rotate-45 after:border-r after:border-t after:border-[#a7a7a7] last:after:hidden max-[760px]:nth-[2]:after:hidden"
+                  key={step}
+                >
+                  <b className="grid h-[58px] w-[58px] place-items-center rounded-full border border-[#6c6c6c] text-[15px] font-normal text-[#555]">
+                    {index + 1}
+                  </b>
+                  <strong className="text-sm font-normal text-[#555]">
+                    {step}
+                  </strong>
+                </article>
+              ),
+            )}
+          </div>
+          <p className="m-0 text-[11px] text-[#8b8b8b] max-[760px]:leading-[1.7]">
+            *면접전형 이후 실무진에서 별도의 실무면접 요청이 있을 수도 있습니다.
+            &nbsp;*각 시기별 인력 소요가 발생할 경우 상시 채용으로 진행하고
+            있습니다.
+          </p>
+        </section>
+        <section className="mx-auto w-[min(1217px,calc(100%-96px))] border-t border-[#eee] pb-[105px] pt-[71px] text-center max-[760px]:w-[calc(100%-40px)] max-[760px]:pb-[65px] max-[760px]:pt-[54px]">
+          <h2 className="m-0 text-[22px] font-normal text-[#414141]">
+            복지제도
+          </h2>
+          <div className="mt-[45px] grid grid-cols-4 text-left max-[760px]:mt-8 max-[760px]:grid-cols-2">
+            {benefits.map(([title, body], index) => (
+              <article
+                className="min-h-[212px] border border-[#ececec] border-r-0 p-[22px] pt-[25px] nth-[4n]:border-r nth-[n+5]:border-t-0 max-[760px]:min-h-[190px] max-[760px]:p-[14px] max-[760px]:pt-5 max-[760px]:nth-[4n]:border-r-0 max-[760px]:nth-[2n]:border-r max-[760px]:nth-[n+3]:border-t-0"
+                key={title}
+              >
+                {index < 4 && (
+                  <img
+                    className="mx-[-22px] mb-[19px] mt-[-25px] block h-[83px] w-[calc(100%+44px)] object-cover max-[760px]:mx-[-14px] max-[760px]:mb-[14px] max-[760px]:mt-[-20px] max-[760px]:h-[65px] max-[760px]:w-[calc(100%+28px)]"
+                    src={`/v3-recruit-benefit-${String(index + 1).padStart(2, "0")}.jpg`}
+                    alt=""
+                  />
+                )}
+                <h3 className="mb-[11px] text-[15px] font-medium text-[#505050] max-[760px]:text-[13px]">
+                  {title}
+                </h3>
+                <p className="m-0 break-keep text-xs leading-[1.65] text-[#868686] max-[760px]:text-[11px]">
+                  {body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+      <V3Footer />
+    </div>
+  );
 }
