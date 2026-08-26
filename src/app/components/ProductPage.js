@@ -227,7 +227,7 @@ function ModelCode({ modelCode }) {
         </p>
       </div>
       <div className="grid grid-cols-2 border-x border-[#dbe4e8] max-[760px]:grid-cols-1">
-        {modelCode.items.map(([code, title, description]) => (
+        {modelCode.items.map(([code, title, description, secondary]) => (
           <article
             className="grid min-h-[112px] grid-cols-[44px_1fr] gap-4 border-b border-[#dbe4e8] p-5 odd:border-r max-[760px]:odd:border-r-0"
             key={code}
@@ -237,18 +237,41 @@ function ModelCode({ modelCode }) {
             </span>
             <div>
               <h4 className="m-0 text-sm text-[#29455a]">{title}</h4>
-              <p className="mb-0 mt-2 break-keep text-[13px] leading-[1.6] text-[#637681]">
+              <p className="mb-0 mt-2 whitespace-pre-line break-keep text-[13px] leading-[1.6] text-[#637681]">
                 {description}
               </p>
+              {secondary && (
+                <p className="mb-0 mt-1 whitespace-pre-line break-keep text-[12px] leading-[1.6] text-[#7b888e]">
+                  {secondary}
+                </p>
+              )}
             </div>
           </article>
         ))}
+        {modelCode.items.length % 2 === 1 && (
+          <div
+            aria-hidden="true"
+            className="border-b border-[#dbe4e8] max-[760px]:hidden"
+          />
+        )}
       </div>
     </section>
   );
 }
 
 function SpecificationTable({ specification }) {
+  const mergedColumns = new Set(
+    specification.columns
+      .filter(
+        (column) =>
+          specification.rows.length > 1 &&
+          specification.rows.every(
+            (row) => row[column.key] === specification.rows[0][column.key],
+          ),
+      )
+      .map((column) => column.key),
+  );
+
   return (
     <div className="border-t-[3px] border-[#146d9d]">
       <table className="hidden w-full table-fixed border-collapse bg-white text-center text-[12px] text-[#405967] min-[761px]:table">
@@ -267,16 +290,23 @@ function SpecificationTable({ specification }) {
           </tr>
         </thead>
         <tbody>
-          {specification.rows.map((row) => (
+          {specification.rows.map((row, rowIndex) => (
             <tr key={row.model}>
-              {specification.columns.map((column) => (
-                <td
-                  className={`border-b border-r border-[#e0e8eb] px-4 py-[15px] font-semibold last:border-r-0 ${column.key === "model" ? "font-extrabold text-[#075a9a]" : ""}`}
-                  key={column.key}
-                >
-                  {row[column.key]}
-                </td>
-              ))}
+              {specification.columns.map((column, columnIndex) => {
+                const isMerged = mergedColumns.has(column.key);
+
+                if (isMerged && rowIndex > 0) return null;
+
+                return (
+                  <td
+                    className={`border-b border-r border-[#e0e8eb] px-4 py-[15px] align-middle font-semibold ${columnIndex === specification.columns.length - 1 ? "border-r-0" : ""} ${column.key === "model" ? "font-extrabold text-[#075a9a]" : ""}`}
+                    key={column.key}
+                    rowSpan={isMerged ? specification.rows.length : undefined}
+                  >
+                    {row[column.key]}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
