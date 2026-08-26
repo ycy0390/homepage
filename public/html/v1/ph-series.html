@@ -3,173 +3,81 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>PH 시리즈 | HTML V1</title>
+    <title>PH 시리즈 | 한국도키멕</title>
     <link rel="stylesheet" href="../../static/css/v1/styles.css" />
   </head>
-
   <body>
     <header class="header">
-      <a href="index.html"
-        ><img class="logo" src="../../tokimec_logo.png" alt="한국도키멕"
-      /></a>
-      <nav class="nav">
-        <a href="products.html">제품소개</a><a href="#models">모델·사양</a
-        ><a href="#catalog">카탈로그</a>
-      </nav>
-      <a class="contact" href="#inquiry">기술 문의</a>
+      <a href="products.html" aria-label="한국도키멕 제품 페이지 처음으로"><img class="logo" src="../../tokimec_logo.png" alt="한국도키멕 TOKIMEC" /></a>
+      <nav class="nav" aria-label="주요 메뉴"><a href="products.html">제품소개</a><a href="#resources">기술 자료</a><a href="#specification">형식·사양</a></nav>
     </header>
+
     <main>
-      <section class="hero">
+      <section class="hero" id="top">
         <div class="hero-copy">
           <p class="eyebrow">HYDRAULICS / PISTON PUMP / PH SERIES</p>
-          <p class="crumb">제품소개 › 유압 › 펌프 › 피스톤 펌프</p>
+          <p class="crumb">제품소개 <span>›</span> 유압 <span>›</span> 펌프 <span>›</span> 피스톤 펌프</p>
           <h1>저소음고압<br />가변용량형 피스톤 펌프</h1>
-          <p class="english">
-            Low noise, high pressure variable displacement piston pumps
-          </p>
-          <p class="lead">
-            고압 유압 회로에 대응하는 PH80, PH100, PH130 시리즈입니다.
-          </p>
-          <div class="actions">
-            <a class="button primary" href="#catalog">카탈로그 미리보기 ↓</a
-            ><a
-              class="button secondary"
-              href="../../catalogs/ph-series-piston-pumps.pdf"
-              download
-              >PDF 다운로드 ↗</a
-            >
+          <p class="english">Low noise, high pressure variable displacement piston pumps</p>
+          <p class="lead">PH 시리즈의 제품별 기술 자료와 기본 사양을 빠르게 확인할 수 있습니다.</p>
+          <div class="resource-grid" data-resource-grid>
+            <button class="resource-button" data-resource="catalog" data-label="카탈로그" data-available="true" data-file="../../catalogs/ph-series-piston-pumps.pdf" data-action="preview" type="button"><span data-resource-label>카탈로그</span><span>↗</span></button>
+            <button class="resource-button" data-resource="outline" data-label="외관도" data-available="false" data-action="preview" type="button"><span data-resource-label>외관도</span><span>—</span></button>
+            <button class="resource-button" data-resource="structure" data-label="구조도" data-available="true" data-file="../../product-details/ph-section.png" data-action="preview" type="button"><span data-resource-label>구조도</span><span>↗</span></button>
+            <button class="resource-button" data-resource="2d" data-label="2D CAD" data-available="false" data-action="download" type="button"><span data-resource-label>2D CAD</span><span>—</span></button>
+            <button class="resource-button" data-resource="3d" data-label="3D CAD" data-available="false" data-action="download" type="button"><span data-resource-label>3D CAD</span><span>—</span></button>
+            <button class="resource-button" data-resource="manual" data-label="취급설명서" data-available="false" data-action="preview" type="button"><span data-resource-label>취급설명서</span><span>—</span></button>
           </div>
         </div>
         <div class="visual">
           <div class="series">SERIES<br /><strong>PH</strong></div>
-          <img
-            src="../../piston-pump-ph-series.png"
-            alt="PH 시리즈 피스톤 펌프"
-          />
+          <img class="ph-hero-image" src="../../product-details/ph-product.png" alt="PH 시리즈 저소음고압 가변용량형 피스톤 펌프" />
+          <p class="visual-caption">HIGH PRESSURE\nPISTON PUMP</p>
         </div>
       </section>
-      <section class="specs">
-        <div><span>사용압력</span><strong>정격 28 / 최고 30 MPa</strong></div>
-        <div><span>최고 회전수</span><strong>1,800 min⁻¹</strong></div>
-        <div><span>최대 이론용적</span><strong>80 - 130 cm³/rev</strong></div>
-        <div><span>카탈로그</span><strong>11 pages · 1.8 MB</strong></div>
-      </section>
-      <section class="section">
-        <div>
-          <p class="kicker">PRODUCT OVERVIEW</p>
-          <h2>고압 환경을 위한<br />안정적인 유압 펌프</h2>
+
+      <section class="highlights" aria-label="대표 사양"><div class="highlights-inner"><dl><dt>사용압력</dt><dd>정격 28 / 최고 30 MPa</dd></dl><dl><dt>최고 회전수</dt><dd>1,800 min⁻¹</dd></dl><dl><dt>최대 이론용적</dt><dd>80 – 130 cm³/rev</dd></dl></div></section>
+
+      <section class="technical" id="resources">
+        <div class="section-heading"><div><p class="kicker">PRODUCT TECHNICAL DATA</p><h2>제품 구조와<br />작동 정보를 봅니다.</h2></div><p>제품 외관, 내부 단면 및 유압 심벌을 통해 PH 시리즈의 기본 구성과 적용 특성을 빠르게 확인할 수 있습니다.</p></div>
+        <div class="technical-grid">
+          <figure class="technical-figure product"><img src="../../product-details/ph-product.png" alt="PH 시리즈 제품" /><figcaption>PH SERIES / PRODUCT</figcaption></figure>
+          <figure class="technical-figure section-view"><img src="../../product-details/ph-section.png" alt="PH 시리즈 내부 구조도" /><figcaption>INTERNAL STRUCTURE / SECTION VIEW</figcaption></figure>
+          <div class="technical-copy"><p class="kicker">PRODUCT TECHNICAL DATA</p><h3>저소음과 고압 운전을 위한 PH 시리즈</h3><p>PH 시리즈는 고압 유압 회로에 대응하는 가변용량형 피스톤 펌프입니다. 내부 구조와 유압 심벌, 모델 코드를 함께 제공해 필요한 제어 방식과 사양을 빠르게 검토할 수 있도록 구성했습니다.</p></div>
+          <figure class="technical-figure symbol"><img src="../../product-details/ph-symbol.png" alt="PH 시리즈 유압 심벌" /><figcaption>HYDRAULIC SYMBOL</figcaption></figure>
         </div>
-        <div class="copy">
-          <p>
-            PH 시리즈는 고압 조건에 대응하는 저소음 가변용량형 피스톤
-            펌프입니다.
-          </p>
-          <div class="features">
-            <article>
-              <span>01</span>
-              <h3>고압 대응</h3>
-              <p>정격 28 MPa, 최고 30 MPa에 대응합니다.</p>
-            </article>
-            <article>
-              <span>02</span>
-              <h3>저소음 설계</h3>
-              <p>장비 환경의 소음 부담을 낮춥니다.</p>
-            </article>
-            <article>
-              <span>03</span>
-              <h3>모델 선택</h3>
-              <p>PH80·PH100·PH130을 선택할 수 있습니다.</p>
-            </article>
+      </section>
+
+      <section class="specification" id="specification">
+        <div class="spec-layout">
+          <div class="spec-intro"><p class="kicker">MODEL &amp; SPECIFICATION</p><h2>형식과<br />기본 사양</h2></div>
+          <div class="spec-content">
+            <section class="model-code" aria-labelledby="model-code-heading">
+              <div class="model-code-heading"><p>MODEL CODE</p><h3 id="model-code-heading">형식</h3></div>
+              <div class="model-code-main"><div class="model-code-sequence" aria-label="PH100-MS(*)-(F)YR-20-CH-(D)-10-(S38) 형식 기호 번호 안내">
+                <span class="model-group"><span class="model-token"><span>PH100</span><b>1</b></span><span class="model-hyphen">-</span></span>
+                <span class="model-group"><span class="model-token"><span>M</span><b>2</b></span><span class="model-token"><span>S</span><b>3</b></span><span class="model-token"><span>(*)</span><b>4</b></span><span class="model-hyphen">-</span></span>
+                <span class="model-group"><span class="model-token"><span>(F)</span><b>5</b></span><span class="model-token"><span>Y</span><b>6</b></span><span class="model-token"><span>R</span><b>7</b></span><span class="model-hyphen">-</span></span>
+                <span class="model-group"><span class="model-token"><span>20</span><b>8</b></span><span class="model-hyphen">-</span></span>
+                <span class="model-group"><span class="model-token"><span>CH</span><b>9</b></span><span class="model-hyphen">-</span></span>
+                <span class="model-group"><span class="model-token"><span>(D)</span><b>10</b></span><span class="model-hyphen">-</span></span>
+                <span class="model-group"><span class="model-token"><span>10</span><b>11</b></span><span class="model-hyphen">-</span></span>
+                <span class="model-group"><span class="model-token"><span>(S38)</span><b>12</b></span></span>
+              </div><p>위 번호는 아래 선택 항목과 대응합니다. 실제 형식 선정은 운전 조건에 따라 기술 검토가 필요합니다.</p></div>
+              <div class="model-code-list">
+                <article><b>1</b><div><h4>펌프 시리즈</h4><p>PH80 · PH100 · PH130</p></div></article><article><b>2</b><div><h4>포트 사양</h4><p>M : 표준</p></div></article><article><b>3·4</b><div><h4>더블 펌프화 코드</h4><p>S : 싱글 펌프</p></div></article><article><b>5</b><div><h4>펌프 취부방식</h4><p>무기호 : 플랜지 취부형 / F : FOOT 취부형</p></div></article><article><b>6</b><div><h4>축단형상</h4><p>X : SAE 사각키 샤프트 / Y : 롱샤프트</p></div></article><article><b>7</b><div><h4>축 회전방향</h4><p>R : 우회전 / L : 좌회전</p></div></article><article><b>8</b><div><h4>설계 번호</h4><p>표준 사양에 따른 설계 번호</p></div></article><article><b>9</b><div><h4>펌프 제어방식</h4><p>CH · CGH · CVH · TL/TH · EDHS</p></div></article><article><b>10</b><div><h4>용적 조정기능</h4><p>무기호 : 없음 / D : 있음</p></div></article><article><b>11</b><div><h4>펌프 제어 밸브 디자인 번호</h4><p>표준 제어 밸브 디자인 번호</p></div></article><article><b>12</b><div><h4>관리기호</h4><p>S38 : T/L 적용형 / 무기호 : 그 외</p></div></article>
+              </div>
+            </section>
+            <div><p>STANDARD SPECIFICATION</p><h3>PH 시리즈 표준 사양</h3><div class="spec-table-wrap"><table class="spec-table"><caption class="sr-only">PH 시리즈 표준 사양</caption><thead><tr><th>형식</th><th>최대 이론용적\ncm³/rev</th><th>사용압력\nMPa</th><th>최고 회전수\nmin⁻¹</th><th>최저 회전수\nmin⁻¹</th><th>무게\nkg</th></tr></thead><tbody><tr><td>PH80</td><td>80</td><td>정격 28 / 간헐 30</td><td>1,800</td><td>600</td><td>51</td></tr><tr><td>PH100</td><td>100</td><td>정격 28 / 간헐 30</td><td>1,800</td><td>600</td><td>70</td></tr><tr><td>PH130</td><td>130</td><td>정격 28 / 간헐 30</td><td>1,800</td><td>600</td><td>95</td></tr></tbody></table><div class="mobile-specs"><article class="mobile-spec-card"><header><strong>PH80</strong><span>80 cm³/rev</span></header><dl><div><dt>사용압력</dt><dd>정격 28 / 간헐 30 MPa</dd></div><div><dt>최고 회전수</dt><dd>1,800 min⁻¹</dd></div><div><dt>최저 회전수</dt><dd>600 min⁻¹</dd></div><div><dt>무게</dt><dd>51 kg</dd></div></dl></article><article class="mobile-spec-card"><header><strong>PH100</strong><span>100 cm³/rev</span></header><dl><div><dt>사용압력</dt><dd>정격 28 / 간헐 30 MPa</dd></div><div><dt>최고 회전수</dt><dd>1,800 min⁻¹</dd></div><div><dt>최저 회전수</dt><dd>600 min⁻¹</dd></div><div><dt>무게</dt><dd>70 kg</dd></div></dl></article><article class="mobile-spec-card"><header><strong>PH130</strong><span>130 cm³/rev</span></header><dl><div><dt>사용압력</dt><dd>정격 28 / 간헐 30 MPa</dd></div><div><dt>최고 회전수</dt><dd>1,800 min⁻¹</dd></div><div><dt>최저 회전수</dt><dd>600 min⁻¹</dd></div><div><dt>무게</dt><dd>95 kg</dd></div></dl></article></div></div><ul class="spec-notes"><li>간헐압력은 운전 사이클의 10% 이하, 최대 6초간 적용 가능한 압력입니다.</li><li>전기 다이렉트 제어 EDHS형의 정격압력은 21 MPa입니다.</li><li>물·글리콜계 작동유 적용은 별도 검토가 필요합니다.</li></ul></div>
           </div>
         </div>
       </section>
-      <section class="section models" id="models">
-        <div>
-          <p class="kicker">MODEL LINE-UP</p>
-          <h2>PH 시리즈<br />모델 선택</h2>
-        </div>
-        <div class="model-table">
-          <div class="model-row">
-            <strong>PH80</strong><span>80 cm³/rev</span
-            ><a href="#inquiry">문의하기 →</a>
-          </div>
-          <div class="model-row">
-            <strong>PH100</strong><span>100 cm³/rev</span
-            ><a href="#inquiry">문의하기 →</a>
-          </div>
-          <div class="model-row">
-            <strong>PH130</strong><span>130 cm³/rev</span
-            ><a href="#inquiry">문의하기 →</a>
-          </div>
-        </div>
-      </section>
-      <section class="catalog" id="catalog">
-        <div class="catalog-copy">
-          <p class="kicker">CATALOGUE</p>
-          <h2>PH 시리즈<br />카탈로그</h2>
-          <p>PH 시리즈 상세 사양을 11페이지로 확인할 수 있습니다.</p>
-          <div class="actions">
-            <a
-              class="button primary"
-              href="../../catalogs/ph-series-piston-pumps.pdf"
-              target="_blank"
-              >새 창에서 보기 ↗</a
-            ><a
-              class="button secondary"
-              href="../../catalogs/ph-series-piston-pumps.pdf"
-              download
-              >PDF 다운로드 ↓</a
-            >
-          </div>
-          <a href="index.html">P**V 시리즈 보기 →</a>
-        </div>
-        <div class="catalog-frame">
-          <iframe
-            title="PH 카탈로그"
-            src="../../catalogs/ph-series-piston-pumps.pdf#page=1"
-          ></iframe>
-        </div>
-        <div class="catalog-mobile">
-          <strong>PH 시리즈 카탈로그</strong><span>11 pages · 1.8 MB</span
-          ><a
-            class="button primary"
-            href="../../catalogs/ph-series-piston-pumps.pdf"
-            target="_blank"
-            >PDF 새 창 열기 ↗</a
-          ><a href="../../catalogs/ph-series-piston-pumps.pdf" download
-            >PDF 다운로드 ↓</a
-          >
-        </div>
-      </section>
-      <section class="inquiry" id="inquiry">
-        <p class="kicker">PRODUCT INQUIRY</p>
-        <h2>적용 조건을 알려주시면<br />적합한 모델 선정을 돕겠습니다.</h2>
-        <form class="form" data-inquiry data-series="PH 시리즈">
-          <label class="field"
-            ><span>회사명</span><input name="company" required /></label
-          ><label class="field"
-            ><span>담당자명</span><input name="name" required /></label
-          ><label class="field"
-            ><span>연락처</span><input name="phone" required /></label
-          ><label class="field"
-            ><span>이메일</span
-            ><input name="email" type="email" required /></label
-          ><label class="field message"
-            ><span>문의 내용</span
-            ><textarea name="message" required></textarea></label
-          ><button class="submit" type="submit">
-            이메일로 문의 작성하기 ↗
-          </button>
-          <p class="help">사용 중인 이메일 프로그램이 열립니다.</p>
-        </form>
-      </section>
+
+      <section class="resource-cta"><button data-show-resources type="button">자료 바로보기 <span>↑</span></button></section>
     </main>
-    <footer class="footer">
-      <img class="logo" src="../../tokimec_logo.png" alt="한국도키멕" />
-      <p>HTML · CSS · JavaScript로 구성된 V1 정적 버전입니다.</p>
-      <a href="#top">맨 위로 ↑</a>
-    </footer>
+    <footer class="footer"><img class="logo" src="../../tokimec_logo.png" alt="한국도키멕 TOKIMEC" /><p>제품별 제공 자료와 세부 사양은 변경될 수 있으며, 최신 자료는 본 페이지의 기술 자료 버튼에서 확인할 수 있습니다.</p></footer>
+
+    <div class="resource-modal" data-resource-modal aria-labelledby="resource-use-title" aria-modal="true" role="dialog"><button class="modal-backdrop" data-modal-close aria-label="자료 이용 안내 닫기" type="button"></button><section class="modal-panel"><header class="modal-header"><p>DOCUMENT ACCESS</p><h2 id="resource-use-title">자료 이용 안내</h2><p class="modal-summary"><span data-modal-resource></span> 자료를 <span data-modal-action></span> 전에 확인해 주세요.</p></header><div class="modal-body"><ul><li>본 자료의 저작권은 한국유켄공업 주식회사가 보유합니다.</li><li>무단 복제, 배포, 판매 등의 2차 이용은 금지되어 있습니다.</li><li>카탈로그에 기재된 사양 및 특성은 일정 조건 하에서의 대표 성능이며, 모든 조건하에서의 동작을 보증하는 것은 아닙니다.</li><li>제품마다 기기 차이로 인해 다소 변동이 있을 수 있습니다.</li></ul></div><footer class="modal-actions"><button class="modal-cancel" data-modal-cancel type="button">취소</button><button class="modal-confirm" data-modal-confirm type="button">확인</button></footer></section></div>
     <script src="../../static/js/v1/script.js"></script>
   </body>
 </html>
-<!-- HTML v1 -->
