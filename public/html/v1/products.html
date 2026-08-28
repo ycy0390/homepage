@@ -6,45 +6,31 @@
     <title>제품소개 | HTML V1</title>
     <link rel="stylesheet" href="../../static/css/v1/styles.css" />
   </head>
-
   <body>
     <header class="header">
-      <a href="index.html"
-        ><img class="logo" src="../../tokimec_logo.png" alt="한국도키멕"
-      /></a>
-      <nav class="nav"><a href="products.html">제품소개</a></nav>
-      <a class="contact" href="mailto:tokimec@tokimec.co.kr">기술 문의</a>
+      <a href="products.html" aria-label="한국도키멕 제품소개"><img class="logo" src="../../tokimec_logo.png" alt="한국도키멕 TOKIMEC" /></a>
+      <nav class="nav" aria-label="주요 메뉴"><a href="products.html">제품소개</a></nav>
     </header>
     <main>
-      <section class="index-hero">
-        <p class="eyebrow">PRODUCT INTRODUCTION</p>
-        <h1>제품소개</h1>
-        <span>유압기기 › 펌프 › 피스톤 펌프</span>
-      </section>
+      <section class="index-hero"><p class="eyebrow">PRODUCT INTRODUCTION</p><h1>제품소개</h1><span>유압기기 › 펌프 › 피스톤 펌프 · 정용량형 베인 펌프</span></section>
       <section class="product-list">
-        <a class="product-card" href="index.html"
-          ><span>PISTON PUMP / P**V SERIES</span
-          ><img src="../../piston-pump-pv-series.png" alt="P**V" />
-          <div>
-            <h2>저소음 가변용량형 피스톤 펌프</h2>
-            <p>16 - 130 cm³/rev · 최고 21 MPa</p>
-            <b>제품 상세보기 →</b>
-          </div> </a
-        ><a class="product-card" href="ph-series.html"
-          ><span>PISTON PUMP / PH SERIES</span
-          ><img src="../../piston-pump-ph-series.png" alt="PH" />
-          <div>
-            <h2>저소음고압 가변용량형 피스톤 펌프</h2>
-            <p>80 - 130 cm³/rev · 최고 30 MPa</p>
-            <b>제품 상세보기 →</b>
-          </div>
-        </a>
+        <h2 class="product-list-title">피스톤 펌프</h2>
+        <a class="product-card" href="index.html"><span>PISTON PUMP / P**V SERIES</span><img src="../../piston-pump-pv-series.png" alt="P**V" /><div><h2>저소음 가변용량형 피스톤 펌프</h2><p>16 - 130 cm³/rev · 최고 21 MPa</p><b>제품 상세보기 →</b></div></a>
+        <a class="product-card" href="ph-series.html"><span>PISTON PUMP / PH SERIES</span><img src="../../piston-pump-ph-series.png" alt="PH" /><div><h2>저소음고압 가변용량형 피스톤 펌프</h2><p>80 - 130 cm³/rev · 최고 30 MPa</p><b>제품 상세보기 →</b></div></a>
+        <a class="product-card" href="domestic-piston-pump.html"><span>PISTON PUMP / P**V SERIES</span><img src="../../product-details/catalog-products/domestic-piston-pump-product.png" alt="국산 저소음 가변용량형 피스톤 펌프" /><div><h2>국산 저소음 가변용량형 피스톤 펌프</h2><p>21 MPa · 1,800 min⁻¹ · 16 – 21 cm³/rev</p><b>제품 상세보기 →</b></div></a>
+      </section>
+      <section class="product-list product-list-vane">
+        <h2 class="product-list-title">정용량형 베인 펌프</h2>
+        <a class="product-card" href="sqp-sqps-single.html"><span>VANE PUMP / SQP/SQPS 1연 SERIES</span><img src="../../product-details/catalog-products/sqp-single-vane-pump-product.png" alt="SQP/SQPS 1연 정용량형 베인 펌프" /><div><h2>저소음 정용량형 1연 베인 펌프</h2><p>17.5 MPa · 1,800 min⁻¹ · 7.5 – 189 L/min</p><b>제품 상세보기 →</b></div></a>
+          <a class="product-card" href="sqp-sqps-double.html"><span>VANE PUMP / SQP/SQPS 2연 SERIES</span><img src="../../product-details/catalog-products/sqp-double-vane-pump-product.png" alt="SQP/SQPS 2연 정용량형 베인 펌프" /><div><h2>저소음 정용량형 2연 베인 펌프</h2><p>17.5 MPa · 1,800 min⁻¹ · 2연 용량 조합</p><b>제품 상세보기 →</b></div></a>
+          <a class="product-card" href="sqp-triple.html"><span>VANE PUMP / SQP 3연 SERIES</span><img src="../../product-details/catalog-products/sqp-triple-vane-pump-product.png" alt="SQP 3연 정용량형 베인 펌프" /><div><h2>저소음 정용량형 3연 베인 펌프</h2><p>17.5 MPa · 1,800 min⁻¹ · 3연 용량 조합</p><b>제품 상세보기 →</b></div></a>
+          <a class="product-card" href="vq-single.html"><span>VANE PUMP / VQ 1연 SERIES</span><img src="../../product-details/catalog-products/vq-single-vane-pump-product.png" alt="VQ 1연 정용량형 베인 펌프" /><div><h2>차량용 고성능 1연 베인 펌프</h2><p>21 MPa · 2,700 min⁻¹ · 38.3 – 189 L/min</p><b>제품 상세보기 →</b></div></a>
+          <a class="product-card" href="vq-double.html"><span>VANE PUMP / VQ 2연 SERIES</span><img src="../../product-details/catalog-products/vq-double-vane-pump-product.png" alt="VQ 2연 정용량형 베인 펌프" /><div><h2>차량용 고성능 2연 베인 펌프</h2><p>21 MPa · 2,700 min⁻¹ · 20.4 – 53.5 kg</p><b>제품 상세보기 →</b></div></a>
+          <a class="product-card" href="v-104-124-134-144.html"><span>VANE PUMP / V-104/124/134/144 SERIES</span><img src="../../product-details/catalog-products/v-104-series-product.png" alt="V-104·124·134·144 정용량형 베인 펌프" /><div><h2>정용량형 베인 펌프 V-104·124·134·144</h2><p>7 MPa · 1,800 min⁻¹ · 5.7 – 119 L/min</p><b>제품 상세보기 →</b></div></a>
+          <a class="product-card" href="v-108-128-138-148.html"><span>VANE PUMP / V-108/128/138/148 SERIES</span><img src="../../product-details/catalog-products/v-108-series-product.png" alt="V-108·128·138·148 2연 정용량형 베인 펌프" /><div><h2>정용량형 2연 베인 펌프 V-108·128·138·148</h2><p>7 MPa · 1,800 min⁻¹ · 2연 용량 조합</p><b>제품 상세보기 →</b></div></a>
+          <a class="product-card" href="v20-v30.html"><span>VANE PUMP / V20/30 SERIES</span><img src="../../product-details/catalog-products/v20-30-series-product.png" alt="V20/30 정용량형 베인 펌프" /><div><h2>정용량형 베인 펌프 V20/30 시리즈</h2><p>17.5 MPa · 3,400 min⁻¹ · 18.9 – 90 L/min</p><b>제품 상세보기 →</b></div></a>
       </section>
     </main>
-    <footer class="footer">
-      <img class="logo" src="../../tokimec_logo.png" alt="한국도키멕" />
-      <p>제품 시리즈를 선택해 카탈로그를 확인하세요.</p>
-    </footer>
+    <footer class="footer"><img class="logo" src="../../tokimec_logo.png" alt="한국도키멕 TOKIMEC" /><p>제품 시리즈를 선택해 기술 자료와 기본 사양을 확인하세요.</p></footer>
   </body>
 </html>
-<!-- HTML v1 -->

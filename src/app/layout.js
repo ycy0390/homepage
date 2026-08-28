@@ -1,9 +1,8 @@
 import "./tailwind.css";
 
 export const metadata = {
-  title: "P**V 시리즈 | 한국도키멕",
-  description:
-    "저소음 가변용량형 피스톤 펌프 P**V 시리즈 제품 상세 및 카탈로그",
+  title: "한국도키멕 홈페이지 시안",
+  description: "한국도키멕 홈페이지 v1, v2, v3 시안 선택 화면",
 };
 
 export default function RootLayout({ children }) {

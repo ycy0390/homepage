@@ -2,3 +2,6 @@
 /* HTML v1 styles */
 .model-code-list .model-code-secondary{margin-top:4px;color:#7b888e;font-size:12px;line-height:1.6}
 .spec-table.merged-tail tbody tr+tr td:last-child{border-right:1px solid #e0e8eb}.model-code-placeholder{border-bottom:1px solid #dbe4e8}@media(max-width:760px){.model-code-placeholder{display:none}}
+.spec-table td.structural-not-last{border-right:1px solid #e0e8eb}.spec-table td.spec-model{color:#075a9a;font-weight:800}.product-list-title{grid-column:1/-1;margin:0 0 4px;color:#173550;font-size:clamp(28px,3vw,40px);letter-spacing:-.06em}.product-list-vane{padding-top:0}
+.spec-table.spec-table-dense{font-size:10px}.spec-table.spec-table-dense th{padding:10px 4px;letter-spacing:-.04em}.spec-table.spec-table-dense td{padding:8px 4px}
+.mobile-spec-card .mobile-spec-empty{min-height:1px}

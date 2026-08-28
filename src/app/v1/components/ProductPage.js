@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const resourceButtonClass =
@@ -237,9 +238,11 @@ function ModelCode({ modelCode }) {
             </span>
             <div>
               <h4 className="m-0 text-sm text-[#29455a]">{title}</h4>
-              <p className="mb-0 mt-2 whitespace-pre-line break-keep text-[13px] leading-[1.6] text-[#637681]">
-                {description}
-              </p>
+              {description && (
+                <p className="mb-0 mt-2 whitespace-pre-line break-keep text-[13px] leading-[1.6] text-[#637681]">
+                  {description}
+                </p>
+              )}
               {secondary && (
                 <p className="mb-0 mt-1 whitespace-pre-line break-keep text-[12px] leading-[1.6] text-[#7b888e]">
                   {secondary}
@@ -259,28 +262,44 @@ function ModelCode({ modelCode }) {
   );
 }
 
-function SpecificationTable({ specification }) {
-  const mergedColumns = new Set(
-    specification.columns
-      .filter(
-        (column) =>
-          specification.rows.length > 1 &&
-          specification.rows.every(
-            (row) => row[column.key] === specification.rows[0][column.key],
-          ),
-      )
-      .map((column) => column.key),
-  );
+function getRowSpan(rows, rowIndex, key, groupKey) {
+  const value = rows[rowIndex][key];
+  const groupValue = groupKey ? rows[rowIndex][groupKey] : undefined;
 
+  if (
+    rowIndex > 0 &&
+    rows[rowIndex - 1][key] === value &&
+    (!groupKey || rows[rowIndex - 1][groupKey] === groupValue)
+  ) {
+    return 0;
+  }
+
+  let span = 1;
+  while (
+    rows[rowIndex + span]?.[key] === value &&
+    (!groupKey || rows[rowIndex + span]?.[groupKey] === groupValue)
+  ) {
+    span += 1;
+  }
+
+  return span;
+}
+
+function SpecificationTable({ specification }) {
+  const primaryColumn = specification.columns[1];
+  const detailColumns = specification.columns.slice(2);
+  const primaryUnit =
+    primaryColumn.mobileUnit ??
+    (primaryColumn.key === "displacement" ? "cm³/rev" : "");
   return (
     <div className="border-t-[3px] border-[#146d9d]">
-      <table className="hidden w-full table-fixed border-collapse bg-white text-center text-[12px] text-[#405967] min-[761px]:table">
+      <table className={`hidden w-full table-fixed border-collapse bg-white text-center text-[#405967] min-[761px]:table ${specification.dense ? "text-[10px]" : "text-[12px]"}`}>
         <caption className="sr-only">{specification.title}</caption>
         <thead>
           <tr>
             {specification.columns.map((column) => (
               <th
-                className="border-b border-r border-[#dbe4e8] bg-[#eff7fa] px-4 py-4 font-extrabold leading-[1.45] last:border-r-0 whitespace-pre-line"
+                className={`border-b border-r border-[#dbe4e8] bg-[#eff7fa] font-extrabold leading-[1.45] last:border-r-0 whitespace-pre-line ${specification.dense ? "px-1.5 py-2 tracking-[-.04em]" : "px-4 py-4"}`}
                 key={column.key}
                 scope="col"
               >
@@ -291,17 +310,22 @@ function SpecificationTable({ specification }) {
         </thead>
         <tbody>
           {specification.rows.map((row, rowIndex) => (
-            <tr key={row.model}>
+            <tr key={`${row.model}-${row.capacityCode ?? rowIndex}`}>
               {specification.columns.map((column, columnIndex) => {
-                const isMerged = mergedColumns.has(column.key);
+                const rowSpan = getRowSpan(
+                  specification.rows,
+                  rowIndex,
+                  column.key,
+                  specification.mergeWithin,
+                );
 
-                if (isMerged && rowIndex > 0) return null;
+                if (rowSpan === 0) return null;
 
                 return (
                   <td
-                    className={`border-b border-r border-[#e0e8eb] px-4 py-[15px] align-middle font-semibold ${columnIndex === specification.columns.length - 1 ? "border-r-0" : ""} ${column.key === "model" ? "font-extrabold text-[#075a9a]" : ""}`}
+                    className={`border-b border-r border-[#e0e8eb] align-middle font-semibold ${specification.dense ? "px-1.5 py-2" : "px-4 py-[15px]"} ${columnIndex === specification.columns.length - 1 ? "border-r-0" : ""} ${column.key === "model" ? "font-extrabold text-[#075a9a]" : ""}`}
                     key={column.key}
-                    rowSpan={isMerged ? specification.rows.length : undefined}
+                    rowSpan={rowSpan > 1 ? rowSpan : undefined}
                   >
                     {row[column.key]}
                   </td>
@@ -312,16 +336,20 @@ function SpecificationTable({ specification }) {
         </tbody>
       </table>
       <div className="grid gap-3 min-[761px]:hidden">
-        {specification.rows.map((row) => (
-          <article className="overflow-hidden border border-[#dbe4e8] bg-white" key={row.model}>
+        {specification.rows.map((row, rowIndex) => (
+          <article
+            className="overflow-hidden border border-[#dbe4e8] bg-white"
+            key={`${row.model}-${row.capacityCode ?? rowIndex}`}
+          >
             <header className="flex items-center justify-between bg-[#eff7fa] px-4 py-3">
               <strong className="text-[16px] text-[#075a9a]">{row.model}</strong>
               <span className="text-xs font-bold text-[#58717e]">
-                {row.displacement} cm³/rev
+                {row[primaryColumn.key]}
+                {primaryUnit ? ` ${primaryUnit}` : ""}
               </span>
             </header>
             <dl className="m-0 grid grid-cols-2 text-xs">
-              {specification.columns.slice(2).map((column) => (
+              {detailColumns.map((column) => (
                 <div className="border-t border-[#e0e8eb] p-3 even:border-l" key={column.key}>
                   <dt className="mb-1 whitespace-pre-line text-[11px] leading-[1.35] text-[#7b8c95]">
                     {column.label}
@@ -331,6 +359,12 @@ function SpecificationTable({ specification }) {
                   </dd>
                 </div>
               ))}
+              {detailColumns.length % 2 === 1 && (
+                <div
+                  aria-hidden="true"
+                  className="border-l border-t border-[#e0e8eb]"
+                />
+              )}
             </dl>
           </article>
         ))}
@@ -385,6 +419,8 @@ function KeyHighlights({ highlights }) {
 
 export default function ProductPage({ product }) {
   const orderedResources = sortResources(product.resources);
+  const productCategory = product.category ?? "PISTON PUMP";
+  const koreanCategory = product.koreanCategory ?? "피스톤 펌프";
   const [isResourceHighlighted, setIsResourceHighlighted] = useState(false);
   const [selectedResource, setSelectedResource] = useState(null);
   const resourceHighlightTimer = useRef(null);
@@ -476,9 +512,9 @@ export default function ProductPage({ product }) {
   return (
     <main className="min-h-screen bg-[#f7f9fa] text-[#15253a]">
       <header className="sticky top-0 z-20 flex h-[82px] items-center justify-between border-b border-[#edf0f2] bg-white px-[clamp(24px,6vw,100px)] max-[760px]:h-[70px] max-[760px]:px-5">
-        <a
+        <Link
           className="inline-flex items-center"
-          href="/products"
+          href="/v1"
           aria-label="한국도키멕 제품 페이지 처음으로"
         >
           <img
@@ -486,14 +522,14 @@ export default function ProductPage({ product }) {
             src="/tokimec_logo.png"
             alt="한국도키멕 TOKIMEC"
           />
-        </a>
+        </Link>
         <nav
           className="flex gap-[34px] text-sm font-bold text-[#52616f] max-[760px]:hidden"
           aria-label="주요 메뉴"
         >
-          <a className="hover:text-[#075a9a]" href="/products">
+          <Link className="hover:text-[#075a9a]" href="/v1">
             제품소개
-          </a>
+          </Link>
           <a className="hover:text-[#075a9a]" href="#resources">
             기술 자료
           </a>
@@ -509,14 +545,14 @@ export default function ProductPage({ product }) {
       >
         <div className="px-[clamp(24px,7vw,110px)] pb-[70px] pt-[clamp(68px,10vw,140px)] max-[760px]:px-6 max-[760px]:pb-12 max-[760px]:pt-[66px]">
           <p className={kicker}>
-            HYDRAULICS / PISTON PUMP / {product.series} SERIES
+            HYDRAULICS / {productCategory} / {product.series} SERIES
           </p>
           <p className="mb-9 text-xs text-[#6c7d88]">
             제품소개 <span className="px-[7px] text-[#2e93bd]">›</span> 유압{" "}
             <span className="px-[7px] text-[#2e93bd]">›</span> 펌프{" "}
-            <span className="px-[7px] text-[#2e93bd]">›</span> 피스톤 펌프
+            <span className="px-[7px] text-[#2e93bd]">›</span> {koreanCategory}
           </p>
-          <h1 className="mb-[10px] text-[clamp(42px,5vw,72px)] leading-[1.08] tracking-[-.075em]">
+          <h1 className="mb-[10px] whitespace-pre-line text-[clamp(42px,5vw,72px)] leading-[1.08] tracking-[-.075em]">
             {product.headline}
           </h1>
           <p className="text-[17px] font-semibold tracking-[.01em] text-[#39708a]">

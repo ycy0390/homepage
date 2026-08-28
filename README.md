@@ -59,13 +59,14 @@ npm run dev -- --port 3001
 
 ## Next.js 시안별 주소
 
-### v1 — 제품 상세 중심 시안
+### v1 — 제품 목록과 공통 상세 시안
 
 | 화면 | 주소 |
 |---|---|
-| P**V 제품 상세 | `http://localhost:3000/` |
-| 제품 목록 | `http://localhost:3000/products` |
-| PH 제품 상세 | `http://localhost:3000/ph-series` |
+| 제품 목록 | `http://localhost:3000/v1` |
+| P**V 제품 상세 | `http://localhost:3000/v1/products/hydraulics/pumps/piston-pumps/pv-series` |
+| PH 제품 상세 | `http://localhost:3000/v1/products/hydraulics/pumps/piston-pumps/ph-series` |
+| 베인 펌프 제품 상세 예시 | `http://localhost:3000/v1/products/hydraulics/pumps/vane-pumps/sqp-sqps-single` |
 
 ### v2 — 산업용 제품 카탈로그 시안
 
@@ -88,7 +89,7 @@ npm run dev -- --port 3001
 | 인재채용 | `http://localhost:3000/v3/recruit` |
 | 회사소개 | `http://localhost:3000/v3/company` |
 
-버전 선택 화면은 `http://localhost:3000/versions.html`에서 확인할 수 있습니다.
+Next.js 버전 선택 화면은 `http://localhost:3000/`입니다. 기존 `/products`, `/products/[제품-slug]`, `/ph-series` 및 기존 v1의 단축 상세 주소는 각각 새 v1 주소로 자동 이동합니다.
 
 ## 순수 HTML 버전 실행
 
@@ -165,14 +166,21 @@ PDF 파일을 같은 이름으로 교체하면 기존 링크를 수정하지 않
 ```text
 piston-pump-demo/
 ├─ src/
-│  └─ app/                     # Next.js JavaScript 소스
-│     ├─ components/           # v1 공통 제품 상세와 문의 폼
-│     ├─ ph-series/            # v1 PH 상세
-│     ├─ products/             # v1 제품 목록
+│  ├─ app/                     # Next.js 페이지와 공통 UI
+│  │  ├─ page.js               # 흰 배경의 V1 · V2 · V3 선택 화면
+│  │  ├─ v1/
+│  │  │  ├─ page.js           # /v1 제품소개 목록 진입점
+│  │  │  ├─ components/       # 제품 목록·공통 제품 상세 UI
+│  │  │  └─ products/[system]/[group]/[category]/[slug]/page.js
+│  │  │                         # 모든 v1 제품 상세의 단일 동적 진입점
 │     ├─ v2/                   # v2 홈, 목록, 상세
 │     ├─ v3/                   # v3 홈, 제품, 고객지원, 채용, 회사소개
 │     ├─ layout.js             # 공통 HTML 구조 및 body Tailwind 스타일
 │     └─ tailwind.css          # Tailwind 불러오기 한 줄
+│  └─ data/products/           # 제품군별 데이터와 전체 제품 색인
+│     ├─ piston-series.js      # P**V · PH 데이터
+│     ├─ catalog-products.js   # 카탈로그 기반 제품 데이터
+│     └─ index.js              # URL 생성·제품 조회의 단일 진입점
 ├─ public/
 │  ├─ catalogs/                # PDF 카탈로그
 │  ├─ html/                    # 순수 HTML 문서
@@ -190,13 +198,18 @@ piston-pump-demo/
 
 ## 화면 수정 방법
 
-- v1 공통 제품 상세 레이아웃: `src/app/components/ProductPage.js`
-- v1 제품별 문구와 사양: `src/app/page.js`, `src/app/ph-series/page.js`
+- 루트 버전 선택 화면: `src/app/page.js`
+- v1 제품소개 목록 UI: `src/app/v1/components/ProductListPage.js`
+- v1 공통 제품 상세 레이아웃: `src/app/v1/components/ProductPage.js`
+- P**V·PH 제품 데이터: `src/data/products/piston-series.js`
+- 카탈로그 제품 데이터: `src/data/products/catalog-products.js`
+- 모든 v1 제품 URL·검색: `src/data/products/index.js`
+- 모든 v1 제품 상세의 공통 진입점: `src/app/v1/products/[system]/[group]/[category]/[slug]/page.js`
 - v2 공통 헤더·카드·상세: `src/app/v2/components.js`
 - v3 공통 헤더·하단: `src/app/v3/components.js`
 - v3 제품 데이터: `src/app/v3/business-products/data.js`
 - v3 제품 상세 레이아웃: `src/app/v3/business-products/ProductDetail.js`
-- 기술 문의 폼: `src/app/components/InquiryForm.js`
+- 기술 문의 폼: `src/app/v1/components/InquiryForm.js`
 
 Tailwind 스타일은 JSX 요소의 `className`에서 수정합니다.
 

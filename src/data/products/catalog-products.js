@@ -1,0 +1,760 @@
+const asset = (slug, kind) =>
+  `/product-details/catalog-products/${slug}-${kind}.png`;
+
+const resources = (catalog) => [
+  {
+    key: "catalog",
+    label: "카탈로그",
+    file: catalog,
+    action: "preview",
+    available: true,
+  },
+  { key: "outline", label: "외관도", action: "preview", available: false },
+  { key: "structure", label: "구조도", action: "preview", available: false },
+  { key: "2d", label: "2D CAD", action: "download", available: false },
+  { key: "3d", label: "3D CAD", action: "download", available: false },
+  { key: "manual", label: "취급설명서", action: "preview", available: false },
+];
+
+const pistonColumns = [
+  { key: "model", label: "형식" },
+  { key: "displacement", label: "최대 이론용적\ncm³/rev" },
+  { key: "pressure", label: "최고 사용압력\nMPa" },
+  { key: "maximumSpeed", label: "최고 회전수\nmin⁻¹" },
+  { key: "minimumSpeed", label: "최저 회전수\nmin⁻¹" },
+  { key: "weight", label: "무게\nkg" },
+];
+
+const vaneColumns = [
+  { key: "model", label: "시리즈" },
+  { key: "displacement", label: "토출량\nL/min", mobileUnit: "L/min" },
+  { key: "pressure", label: "최고 사용압력\nMPa" },
+  { key: "maximumSpeed", label: "최고 회전수\nmin⁻¹" },
+  { key: "minimumSpeed", label: "최저 회전수\nmin⁻¹" },
+  { key: "weight", label: "무게\nkg" },
+];
+
+const toRows = (rows) =>
+  rows.map(
+    ([model, displacement, pressure, maximumSpeed, minimumSpeed, weight]) => ({
+      model,
+      displacement,
+      pressure,
+      maximumSpeed,
+      minimumSpeed,
+      weight,
+    }),
+  );
+
+const sqpSpecificationColumns = [
+  { key: "model", label: "형식" },
+  { key: "capacityCode", label: "용량\n기호" },
+  { key: "flow", label: "토출량\nL/min", mobileUnit: "L/min" },
+  { key: "oilPressure", label: "석유계\n사용압력\nMPa" },
+  { key: "oilMaximumSpeed", label: "석유계\n최고 회전수\nmin⁻¹" },
+  { key: "glycolPressure", label: "물·글리콜계\n사용압력\nMPa" },
+  { key: "glycolMaximumSpeed", label: "물·글리콜계\n최고 회전수\nmin⁻¹" },
+  { key: "phosphatePressure", label: "인산에스테르계\n사용압력\nMPa" },
+  { key: "phosphateMaximumSpeed", label: "인산에스테르계\n최고 회전수\nmin⁻¹" },
+  { key: "minimumSpeed", label: "최저\n회전수\nmin⁻¹" },
+];
+
+const sqpWeightColumns = [
+  { key: "model", label: "형식" },
+  { key: "sqpFlange", label: "SQP\n플랜지 취부\nkg", mobileUnit: "kg" },
+  { key: "sqpFoot", label: "SQP\nFOOT 취부\nkg" },
+  { key: "sqpsFlange", label: "SQPS\n플랜지 취부\nkg" },
+  { key: "sqpsFoot", label: "SQPS\nFOOT 취부\nkg" },
+];
+
+const makeSqpSpecificationRows = (model, values) =>
+  values.map(([capacityCode, flow, oilPressure = "17.5", glycolPressure = oilPressure]) => ({
+    model,
+    capacityCode,
+    flow,
+    oilPressure,
+    oilMaximumSpeed: "1,800",
+    glycolPressure,
+    glycolMaximumSpeed: "1,200",
+    phosphatePressure: "14",
+    phosphateMaximumSpeed: "1,200",
+    minimumSpeed: "600",
+  }));
+
+const sqpSingleSpecificationRows = [
+  ...makeSqpSpecificationRows("SQP(S)1", [
+    ["2", "7.5", "14", "14"],
+    ["3", "10.2", "14", "14"],
+    ["4", "12.8"],
+    ["5", "16.7"],
+    ["6", "19.2"],
+    ["7", "22.9"],
+    ["8", "26.2"],
+    ["9", "28.3"],
+    ["11", "35.0"],
+    ["12", "37.9", "16", "16"],
+    ["14", "44.2", "14", "14"],
+  ]),
+  ...makeSqpSpecificationRows("SQP(S)2", [
+    ["10", "32.5"],
+    ["12", "38.3"],
+    ["14", "43.3"],
+    ["15", "46.7"],
+    ["17", "52.5"],
+    ["19", "59.2"],
+    ["21", "65.0"],
+  ]),
+  ...makeSqpSpecificationRows("SQP(S)3", [
+    ["17", "53.3"],
+    ["21", "66.7"],
+    ["25", "79.2"],
+    ["30", "95.0"],
+    ["32", "100.0"],
+    ["35", "109.0"],
+    ["38", "118.0"],
+  ]),
+  ...makeSqpSpecificationRows("SQP(S)4", [
+    ["30", "96.0"],
+    ["35", "109.0"],
+    ["38", "128.0"],
+    ["42", "134.0"],
+    ["50", "156.0"],
+    ["60", "189.0"],
+  ]),
+];
+
+const domesticPiston = {
+  slug: "domestic-piston-pump",
+  title: "국산 저소음 가변용량형 피스톤 펌프",
+  series: "P**V",
+  category: "PISTON PUMP",
+  koreanCategory: "피스톤 펌프",
+  headline: "국산 저소음 가변용량형\n피스톤 펌프",
+  englishTitle: "Low noise variable displacement piston pump",
+  lead: "국산 P16V·P21VM 모델의 제품 기술 자료와 기본 사양을 빠르게 확인할 수 있습니다.",
+  image: asset("domestic-piston-pump", "product"),
+  imageAlt: "국산 저소음 가변용량형 피스톤 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "VARIABLE DISPLACEMENT\nPISTON PUMP",
+  technicalProductImage: asset("domestic-piston-pump", "product"),
+  structureImage: asset("domestic-piston-pump", "section"),
+  symbolImage: asset("domestic-piston-pump", "symbol"),
+  technicalTitle: "폭넓은 토출량 범위를 갖춘 국산 사판식 펌프",
+  technicalDescription:
+    "압력보상제어 등 응답성, 안정성이 탁월한 다양한 기능을 갖추고 저소음, 고성능, 고신뢰성을 실현한 새로운 시리즈의 피스톤 펌프입니다. 보다 복잡한 시스템에 대응할 수 있고 펌프화도 손쉽게 행할 수 있어 주요 기기의 성에네르기화, 고속화, 저소음화 등의 다양한 요구에 응할 수 있습니다.",
+  highlights: [
+    { label: "최고 사용압력", value: "21 MPa" },
+    { label: "최고 회전수", value: "1,800 min⁻¹" },
+    { label: "최대 이론용적", value: "16 – 21 cm³/rev" },
+  ],
+  resources: resources("/catalogs/domestic-piston-pump.pdf"),
+  specification: {
+    title: "국산 P**V 시리즈 표준 사양",
+    columns: pistonColumns,
+    rows: toRows([
+      ["P16V", "16", "21", "1,800", "600", "12.2"],
+      ["P21VM", "21", "10.5", "1,800", "600", "12.2"],
+    ]),
+    notes: [
+      "사용압력은 카탈로그에 기재된 석유계 작동유 기준 대표 사양입니다.",
+      "무게는 CC형(압력보상제어) 밸브 내장형 기준 수치입니다.",
+    ],
+  },
+  modelCode: {
+    example: "P16V-(F)RS(G)-30-C(M)C-21",
+    groups: [
+      [["1", "P16V"]],
+      [
+        ["2", "(F)"],
+        ["3", "R"],
+        ["4", "S"],
+        ["5", "(G)"],
+      ],
+      [["6", "30"]],
+      [["7", "C(M)C"]],
+      [["8", "21"]],
+    ],
+    items: [
+      ["1", "시리즈 번호", "P16V : 16 cm³/rev", "P21VM : 21 cm³/rev"],
+      ["2", "펌프 취부방식", "무기호 : 플랜지 취부형", "F : FOOT 취부형"],
+      ["3", "회전방향", "R : 우회전", "축측에서 볼 때 시계방향"],
+      ["4", "사판 경전방향", "S : 편경전형"],
+      ["5", "흡입·토출 포트 배관방식", "무기호 : REAR PORT형 SAE O-ring Seal 배관(1-1/16UN) 접속\nG : REAR PORT형 SAE 4BOLT FLANGES 접속", "T : SIDE PORT형 SAE 4BOLT FLANGES 접속\nTU : SIDE PORT형 TU-PAC용 FLANGE 접속"],
+      ["6", "펌프 디자인 번호"],
+      ["7", "펌프 제어방식", "CC : 최대용적 기능부착 압력보상 제어(1.5~21 MPa)", "CMC : 최대용적 기능부착 압력보상 제어(1.5~10.5 MPa)"],
+      ["8", "제어밸브 디자인 번호", "21 : 제어밸브 부착방향이 회전축에 대해 90°", "체부 BOLT M5 육각구멍 렌치볼트"],
+    ],
+  },
+};
+
+const sqpSingle = {
+  slug: "sqp-sqps-single",
+  title: "저소음 정용량형 1연 베인 펌프",
+  series: "SQP/SQPS 1연",
+  category: "VANE PUMP",
+  koreanCategory: "정용량형 베인 펌프",
+  headline: "저소음 정용량형\n1연 베인 펌프",
+  englishTitle: "Low noise single fixed displacement vane pumps SQP/SQPS series",
+  lead: "SQP/SQPS 1연 베인 펌프의 형식, 토출량 범위와 기본 사양을 확인할 수 있습니다.",
+  image: asset("sqp-single-vane-pump", "product"),
+  imageAlt: "SQP/SQPS 1연 정용량형 베인 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "SINGLE FIXED\nVANE PUMP",
+  technicalProductImage: asset("sqp-single-vane-pump", "product"),
+  structureImage: asset("sqp-single-vane-pump", "section"),
+  symbolImage: asset("sqp-single-vane-pump", "symbol"),
+  technicalTitle: "저소음 카트리지 구조의 1연 베인 펌프",
+  technicalDescription:
+    "SQP/SQPS 시리즈는 회로의 최적화와 에너지 효율을 고려한 저소음 정용량형 베인 펌프입니다. SQPS형은 내장 맥동감소 구조로 토출 압력의 맥동 저감에 대응합니다.",
+  highlights: [
+    { label: "최고 사용압력", value: "17.5 MPa" },
+    { label: "최고 회전수", value: "1,800 min⁻¹" },
+    { label: "토출량 범위", value: "7.5 – 189 L/min" },
+  ],
+  resources: resources("/catalogs/sqp-sqps-single.pdf"),
+  specification: {
+    title: "SQP/SQPS 1연 시리즈 표준 사양",
+    columns: sqpSpecificationColumns,
+    rows: sqpSingleSpecificationRows,
+    mergeWithin: "model",
+    dense: true,
+    notes: [
+      "토출량은 1,000 min⁻¹, 0.7 MPa 조건의 값입니다.",
+      "석유계 작동유는 SQP(S), 물·글리콜계 작동유는 F11-SQP(S), 인산에스테르계 작동유는 F3-SQP(S) 기준입니다.",
+    ],
+  },
+  supplementalSpecification: {
+    title: "무게 (단위: kg)",
+    columns: sqpWeightColumns,
+    rows: [
+      { model: "SQP(S)1", sqpFlange: "16.0", sqpFoot: "19.0", sqpsFlange: "18.5", sqpsFoot: "21.5" },
+      { model: "SQP(S)2", sqpFlange: "25.0", sqpFoot: "34.5", sqpsFlange: "29.5", sqpsFoot: "39.0" },
+      { model: "SQP(S)3", sqpFlange: "35.0", sqpFoot: "44.5", sqpsFlange: "43.0", sqpsFoot: "52.5" },
+      { model: "SQP(S)4", sqpFlange: "59.5", sqpFoot: "84.5", sqpsFlange: "71.0", sqpsFoot: "96.0" },
+    ],
+  },
+  modelCode: {
+    example: "(F3)-SQP(S)3-35-86C(2)-(LH)-18",
+    groups: [
+      [["1", "(F3)"]],
+      [["2", "SQP(S)3"]],
+      [["3", "35"]],
+      [
+        ["4", "86"],
+        ["5", "C"],
+        ["6", "(2)"],
+      ],
+      [["7", "(LH)"]],
+      [["8", "18"]],
+    ],
+    items: [
+      ["1", "적용 작동유", "무기호 : 석유계 작동유", "F3 : 인산에스테르계 작동유\nF11 : 물·글리콜계 작동유"],
+      ["2", "시리즈·용량기호", "SQP(S)1 – SQP(S)4 시리즈"],
+      ["3", "펌프용량기호", "시리즈별 용량기호를 선택"],
+      ["4", "축단형상", "1 : 사각키 부착 평행축 (SQP(S)1·2)\n86 : 사각키 부착 평행축 (SQP(S)3·4)"],
+      ["5", "토출포트 위치 (커버측에서 볼 때)", "A : 흡입포트의 반대면\nB : 흡입포트로부터 90° 반시계방향\nC : 흡입포트와 동일 선상\nD : 흡입포트로부터 90° 시계방향", "FOOT 취부 시 토출포트 위치\n2 : 위쪽(12시 방향)\n23 : 오른쪽(3시 방향)\n26 : 아래(6시 방향)\n29 : 왼쪽(9시 방향)\n※ FOOT 취부위치와 흡입포트는 관련 없습니다."],
+      ["6", "펌프 취부방식", "무기호 : 플랜지 취부형", "2 : FOOT 취부형"],
+      ["7", "회전방향 (축측에서 볼 때)", "무기호 : 우회전(시계방향)", "LH : 좌회전(반시계방향)"],
+      ["8", "디자인 번호", "SQP(S)1 시리즈의 디자인 번호: 15", "SQP(S)2·3·4 시리즈의 형식 예시: 18"],
+    ],
+  },
+};
+
+const sqpDouble = {
+  slug: "sqp-sqps-double",
+  title: "저소음 정용량형 2연 베인 펌프",
+  series: "SQP/SQPS 2연",
+  category: "VANE PUMP",
+  koreanCategory: "정용량형 베인 펌프",
+  headline: "저소음 정용량형\n2연 베인 펌프",
+  englishTitle: "Low noise double fixed displacement vane pumps SQP/SQPS series",
+  lead: "2개 펌프 카트리지를 조합한 SQP/SQPS 2연 베인 펌프의 기본 사양입니다.",
+  image: asset("sqp-double-vane-pump", "product"),
+  imageAlt: "SQP/SQPS 2연 정용량형 베인 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "DOUBLE FIXED\nVANE PUMP",
+  technicalProductImage: asset("sqp-double-vane-pump", "product"),
+  structureImage: asset("sqp-double-vane-pump", "section"),
+  symbolImage: asset("sqp-double-vane-pump", "symbol"),
+  technicalTitle: "용량 조합에 대응하는 2연 카트리지 펌프",
+  technicalDescription:
+    "SQP/SQPS 2연 시리즈는 서로 다른 용량기호를 조합해 회로 요구에 맞춘 토출량 구성을 제공합니다. 카트리지 방식으로 유지보수성과 시스템 적용성을 함께 고려했습니다.",
+  highlights: [
+    { label: "최고 사용압력", value: "17.5 MPa" },
+    { label: "최고 회전수", value: "1,800 min⁻¹" },
+    { label: "구성", value: "2연 용량 조합" },
+  ],
+  resources: resources("/catalogs/sqp-sqps-double.pdf"),
+  specification: {
+    title: "SQP/SQPS 2연 시리즈 조합 사양",
+    columns: vaneColumns,
+    rows: toRows([
+      ["SQP(S)*1", "2 – 14", "17.5", "1,800", "600", "카탈로그 참조"],
+      ["SQP(S)*2", "10 – 21", "17.5", "1,800", "600", "카탈로그 참조"],
+      ["SQP(S)*3", "17 – 38", "17.5", "1,800", "600", "카탈로그 참조"],
+      ["SQP(S)*4", "30 – 60", "17.5", "1,800", "600", "카탈로그 참조"],
+    ]),
+    notes: [
+      "2연 용량 조합과 상세 외형은 카탈로그 B18 – B29쪽을 확인해 주세요.",
+      "토출량은 작동유·회전수·압력 조건에 따라 달라질 수 있습니다.",
+    ],
+  },
+  modelCode: {
+    example: "(F3)-SQP(S)32-35-17-86CD(2)-(LH)-18",
+    groups: [
+      [["1", "(F3)"]],
+      [["2", "SQP(S)32"]],
+      [["3", "35"]],
+      [["4", "17"]],
+      [
+        ["5", "86"],
+        ["6", "C"],
+        ["7", "D"],
+        ["8", "(2)"],
+      ],
+      [["9", "(LH)"]],
+      [["10", "18"]],
+    ],
+    items: [
+      ["1", "적용 작동유", "무기호 : 석유계 작동유", "F3 : 인산에스테르계 작동유\nF11 : 물·글리콜계 작동유"],
+      ["2", "시리즈", "SQP(S)21 / 31 / 41 / 42 / 43 시리즈"],
+      ["3", "1연(축측) 펌프용량기호", "시리즈별 1연 용량기호"],
+      ["4", "2연(커버측) 펌프용량기호", "시리즈별 2연 용량기호"],
+      ["5", "축단형상", "86 : 1사각키 부착 평행축"],
+      ["6", "1연 토출포트 위치", "A/B/C/D : 커버측 기준 위치"],
+      ["7", "2연 토출포트 위치", "A/B/C/D : 커버측 기준 위치"],
+      ["8", "펌프 취부방식", "무기호 : 플랜지 취부형", "2 : FOOT 취부형"],
+      ["9", "회전방향", "무기호 : 우회전", "LH : 좌회전"],
+      ["10", "디자인 번호", "18"],
+    ],
+  },
+};
+
+const sqpTriple = {
+  slug: "sqp-triple",
+  title: "저소음 정용량형 3연 베인 펌프",
+  series: "SQP 3연",
+  category: "VANE PUMP",
+  koreanCategory: "정용량형 베인 펌프",
+  headline: "저소음 정용량형\n3연 베인 펌프",
+  englishTitle: "Low noise triple fixed displacement vane pumps SQP series",
+  lead: "3개 펌프 카트리지를 조합하는 SQP 3연 베인 펌프의 형식과 기본 사양입니다.",
+  image: asset("sqp-triple-vane-pump", "product"),
+  imageAlt: "SQP 3연 정용량형 베인 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "TRIPLE FIXED\nVANE PUMP",
+  technicalProductImage: asset("sqp-triple-vane-pump", "product"),
+  structureImage: asset("sqp-triple-vane-pump", "section"),
+  symbolImage: asset("sqp-triple-vane-pump", "symbol"),
+  technicalTitle: "복수 회로를 위한 3연 용량 조합",
+  technicalDescription:
+    "SQP 3연 시리즈는 최대 3개의 카트리지 펌프를 하나의 축으로 구성해 여러 유압 회로의 토출량 요구에 대응합니다. 형식별 용량 조합과 포트 위치를 선택할 수 있습니다.",
+  highlights: [
+    { label: "최고 사용압력", value: "17.5 MPa" },
+    { label: "최고 회전수", value: "1,800 min⁻¹" },
+    { label: "구성", value: "3연 용량 조합" },
+  ],
+  resources: resources("/catalogs/sqp-triple.pdf"),
+  specification: {
+    title: "SQP 3연 시리즈 조합 사양",
+    columns: vaneColumns,
+    rows: toRows([
+      ["SQP2**", "10 – 21", "17.5", "1,800", "600", "카탈로그 참조"],
+      ["SQP3**", "17 – 38", "17.5", "1,800", "600", "카탈로그 참조"],
+      ["SQP4**", "30 – 60", "17.5", "1,800", "600", "카탈로그 참조"],
+    ]),
+    notes: [
+      "3연 용량 조합, 질량 및 외형은 카탈로그 B30 – B37쪽을 확인해 주세요.",
+      "실제 형식 선정은 각 회로의 압력·유량 조건을 기준으로 검토가 필요합니다.",
+    ],
+  },
+  modelCode: {
+    example: "(F3)-SQP432-60-38-15-86CCC(2)-(LH)-18",
+    groups: [
+      [["1", "(F3)"]],
+      [["2", "SQP432"]],
+      [["3", "60"]],
+      [["4", "38"]],
+      [["5", "15"]],
+      [
+        ["6", "86"],
+        ["7", "C"],
+        ["8", "C"],
+        ["9", "C"],
+        ["10", "(2)"],
+      ],
+      [["11", "(LH)"]],
+      [["12", "18"]],
+    ],
+    items: [
+      ["1", "적용 작동유", "무기호 : 석유계 작동유", "F3 : 인산에스테르계 작동유\nF11 : 물·글리콜계 작동유"],
+      ["2", "시리즈", "SQP211 / 311 / 321 / 421 / 431 / 432 시리즈"],
+      ["3", "1연 펌프용량기호", "시리즈별 1연 용량기호"],
+      ["4", "2연 펌프용량기호", "시리즈별 2연 용량기호"],
+      ["5", "3연 펌프용량기호", "시리즈별 3연 용량기호"],
+      ["6", "축단형상", "86 : 1사각키 부착 평행축"],
+      ["7 – 9", "각 연의 토출포트 위치", "A/B/C/D : 커버측 기준 위치"],
+      ["10", "펌프 취부방식", "무기호 : 플랜지 취부형", "2 : FOOT 취부형"],
+      ["11", "회전방향", "무기호 : 우회전", "LH : 좌회전"],
+      ["12", "디자인 번호", "18"],
+    ],
+  },
+};
+
+const vqSingle = {
+  slug: "vq-single",
+  title: "차량용 고성능 1연 베인 펌프",
+  series: "VQ 1연",
+  category: "VANE PUMP",
+  koreanCategory: "정용량형 베인 펌프",
+  headline: "차량용 고성능\n1연 베인 펌프",
+  englishTitle: "High performance single fixed displacement vane pumps for mobile applications VQ series",
+  lead: "차량용 유압 회로를 위한 VQ 1연 고성능 정용량형 베인 펌프의 기본 사양입니다.",
+  image: asset("vq-single-vane-pump", "product"),
+  imageAlt: "VQ 1연 정용량형 베인 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "MOBILE SINGLE\nVANE PUMP",
+  technicalProductImage: asset("vq-single-vane-pump", "product"),
+  structureImage: asset("vq-single-vane-pump", "section"),
+  symbolImage: asset("vq-single-vane-pump", "symbol"),
+  technicalTitle: "차량용 고압·고속 조건에 대응하는 VQ 시리즈",
+  technicalDescription:
+    "VQ 시리즈는 차량용 유압 시스템을 위한 고성능 정용량형 베인 펌프입니다. 인트라 베인과 플렉시블 사이드 플레이트 구조로 용적 효율과 저온·고온 시동 특성을 고려했습니다.",
+  highlights: [
+    { label: "최고 사용압력", value: "21 MPa" },
+    { label: "최고 회전수", value: "2,700 min⁻¹" },
+    { label: "토출량 범위", value: "38.3 – 189 L/min" },
+  ],
+  resources: resources("/catalogs/vq-single.pdf"),
+  specification: {
+    title: "VQ 1연 시리즈 표준 사양",
+    columns: vaneColumns,
+    rows: toRows([
+      ["25VQ", "38.3 – 65.0", "21", "2,700", "600", "14.5"],
+      ["35VQ", "79.2 – 118", "21", "2,500", "600", "22.7"],
+      ["45VQ", "134 – 189", "17.5", "2,200", "600", "34.0"],
+    ]),
+    notes: [
+      "토출량은 1,000 min⁻¹, 0.7 MPa 조건의 대표값입니다.",
+      "작동유 종류와 형식에 따라 사용압력·회전수 조건이 달라질 수 있습니다.",
+    ],
+  },
+  modelCode: {
+    example: "(F3)-35VQ25A(F)-86C20(L)-JA",
+    groups: [
+      [["1", "(F3)"]],
+      [["2", "35VQ"]],
+      [["3", "25"]],
+      [
+        ["4", "A"],
+        ["5", "(F)"],
+      ],
+      [
+        ["6", "86"],
+        ["7", "C"],
+        ["8", "20"],
+        ["9", "(L)"],
+      ],
+      [["10", "JA"]],
+    ],
+    items: [
+      ["1", "적용 작동유", "무기호 : 석유계 작동유", "F3 : 인산에스테르계 작동유"],
+      ["2", "시리즈", "25VQ / 35VQ / 45VQ 시리즈"],
+      ["3", "펌프용량기호", "시리즈별 용량기호를 선택"],
+      ["4", "접속포트 배관방식", "A : SAE 4볼트 플랜지 접속"],
+      ["5", "펌프 취부방식", "무기호 : 플랜지 취부형", "F : FOOT 취부형"],
+      ["6", "축단형상", "1 : 1사각키 부착 평행축", "86 : 1사각키 부착 평행축"],
+      ["7", "토출포트 위치", "A/B/C/D : 흡입포트 기준 위치"],
+      ["8", "디자인 번호", "20"],
+      ["9", "회전방향", "무기호 : 우회전", "L : 좌회전"],
+      ["10", "관리기호", "JA"],
+    ],
+  },
+};
+
+const vqDouble = {
+  slug: "vq-double",
+  title: "차량용 고성능 2연 베인 펌프",
+  series: "VQ 2연",
+  category: "VANE PUMP",
+  koreanCategory: "정용량형 베인 펌프",
+  headline: "차량용 고성능\n2연 베인 펌프",
+  englishTitle: "High performance double fixed displacement vane pumps for mobile applications VQ series",
+  lead: "차량용 회로에 맞춰 2개 펌프 용량을 조합하는 VQ 2연 베인 펌프입니다.",
+  image: asset("vq-double-vane-pump", "product"),
+  imageAlt: "VQ 2연 정용량형 베인 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "MOBILE DOUBLE\nVANE PUMP",
+  technicalProductImage: asset("vq-double-vane-pump", "product"),
+  structureImage: asset("vq-double-vane-pump", "section"),
+  symbolImage: asset("vq-double-vane-pump", "symbol"),
+  technicalTitle: "2개 회로를 위한 VQ 용량 조합",
+  technicalDescription:
+    "VQ 2연 시리즈는 1연·2연 카트리지의 용량과 포트 방향을 조합할 수 있는 차량용 고성능 베인 펌프입니다. 회로 구성과 설치 조건에 맞춰 형식을 검토할 수 있습니다.",
+  highlights: [
+    { label: "최고 사용압력", value: "21 MPa" },
+    { label: "최고 회전수", value: "2,700 min⁻¹" },
+    { label: "무게 범위", value: "20.4 – 53.5 kg" },
+  ],
+  resources: resources("/catalogs/vq-double.pdf"),
+  specification: {
+    title: "VQ 2연 시리즈 조합 사양",
+    columns: vaneColumns,
+    rows: toRows([
+      ["2520VQ", "5 – 21 / 6 – 13", "최대 21", "제품 조합별", "600", "20.4 – 53.5"],
+      ["3525VQ", "12 – 38 / 12 – 21", "최대 21", "제품 조합별", "600", "20.4 – 53.5"],
+      ["3520VQ", "25 – 38 / 6 – 13", "최대 21", "제품 조합별", "600", "20.4 – 53.5"],
+      ["4525VQ", "42 – 60 / 12 – 21", "최대 21", "제품 조합별", "600", "20.4 – 53.5"],
+    ]),
+    notes: [
+      "2연 조합별 사용압력, 회전수와 질량은 카탈로그 B46쪽에서 확인해 주세요.",
+      "용량기호는 1연(축측)과 2연(커버측) 조합을 각각 선택합니다.",
+    ],
+  },
+  modelCode: {
+    example: "(F3)-3525VQ38A17(F)-86CC20(L)-JA",
+    groups: [
+      [["1", "(F3)"]],
+      [["2", "3525VQ"]],
+      [["3", "38"]],
+      [
+        ["4", "A"],
+        ["5", "17"],
+        ["6", "(F)"],
+      ],
+      [
+        ["7", "86"],
+        ["8", "C"],
+        ["9", "C"],
+        ["10", "20"],
+        ["11", "(L)"],
+      ],
+      [["12", "JA"]],
+    ],
+    items: [
+      ["1", "적용 작동유", "무기호 : 석유계 작동유", "F3 : 인산에스테르계 작동유"],
+      ["2", "시리즈", "2520VQ / 3520VQ / 3525VQ / 4525VQ 시리즈"],
+      ["3", "1연(축측) 펌프용량기호", "시리즈별 1연 용량기호"],
+      ["4", "접속포트 배관방식", "A : SAE 4볼트 플랜지 접속"],
+      ["5", "2연(커버측) 펌프용량기호", "시리즈별 2연 용량기호"],
+      ["6", "펌프 취부방식", "무기호 : 플랜지 취부형", "F : FOOT 취부형"],
+      ["7", "축단형상", "1 : 1사각키 부착 평행축", "86 : 1사각키 부착 평행축"],
+      ["8 – 9", "토출포트 위치", "A/B/C/D : 각 연의 포트 방향"],
+      ["10", "디자인 번호", "20"],
+      ["11", "회전방향", "무기호 : 우회전", "L : 좌회전"],
+      ["12", "관리기호", "JA"],
+    ],
+  },
+};
+
+const v104 = {
+  slug: "v-104-124-134-144",
+  title: "정용량형 베인 펌프 V-104·124·134·144",
+  series: "V-104/124/134/144",
+  category: "VANE PUMP",
+  koreanCategory: "정용량형 베인 펌프",
+  headline: "정용량형 베인 펌프\nV-104·124·134·144",
+  englishTitle: "Fixed displacement vane pumps V-104,124,134,144 series",
+  lead: "V-104·124·134·144 단일 정용량형 베인 펌프 시리즈의 형식과 기본 사양입니다.",
+  image: asset("v-104-series", "product"),
+  imageAlt: "V-104·124·134·144 정용량형 베인 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "FIXED DISPLACEMENT\nVANE PUMP",
+  technicalProductImage: asset("v-104-series", "product"),
+  structureImage: asset("v-104-series", "section"),
+  symbolImage: asset("v-104-series", "symbol"),
+  technicalTitle: "다양한 용량기호를 제공하는 단일 베인 펌프",
+  technicalDescription:
+    "V-104·124·134·144 시리즈는 설치 방식과 용량기호를 선택할 수 있는 정용량형 베인 펌프입니다. 석유계·물·글리콜계 작동유 조건별 사양을 카탈로그 기준으로 확인할 수 있습니다.",
+  highlights: [
+    { label: "최고 사용압력", value: "7 MPa" },
+    { label: "최고 회전수", value: "1,800 min⁻¹" },
+    { label: "토출량 범위", value: "5.7 – 119 L/min" },
+  ],
+  resources: resources("/catalogs/v-104-124-134-144.pdf"),
+  specification: {
+    title: "V-104·124·134·144 시리즈 표준 사양",
+    columns: vaneColumns,
+    rows: toRows([
+      ["V-104", "5.7 – 36.3", "7", "1,200 – 1,800", "600", "9.5"],
+      ["V-124", "48.6", "7", "1,500", "600", "23.6"],
+      ["V-134", "61.5 – 94.2", "7", "1,200 – 1,500", "600", "23.6"],
+      ["V-144", "119", "7", "1,200", "600", "23.6"],
+    ]),
+    notes: [
+      "토출량은 1,000 min⁻¹, 0.7 MPa 조건의 대표값입니다.",
+      "물·글리콜계 작동유 일부 형식의 최고 사용압력은 5.5 MPa입니다.",
+    ],
+  },
+  modelCode: {
+    example: "(F3)-V-104-Y-10-(LH)-(S)-JA-(S36)-J",
+    groups: [
+      [["1", "(F3)"]],
+      [["2", "V-104"]],
+      [["3", "Y"]],
+      [["4", "10"]],
+      [["5", "(LH)"]],
+      [["6", "(S)"]],
+      [["7", "JA-(S36)-J"]],
+    ],
+    items: [
+      ["1", "적용 작동유", "무기호 : 석유계 작동유", "F3 : 인산에스테르계 작동유"],
+      ["2", "정용량 베인펌프 시리즈", "V-104 / V-124 / V-134 / V-144"],
+      ["3", "펌프용량기호", "시리즈별 용량기호"],
+      ["4", "펌프 디자인 번호", "10 : V-104 시리즈", "20 : V-124·134·144 시리즈"],
+      ["5", "회전방향", "무기호 : 우회전", "LH : 좌회전"],
+      ["6", "흡입포트 위치", "축측에서 볼 때 흡입포트 위치"],
+      ["7", "특수기호", "S36 : 물·글리콜계 작동유"],
+    ],
+  },
+};
+
+const v108 = {
+  slug: "v-108-128-138-148",
+  title: "정용량형 2연 베인 펌프 V-108·128·138·148",
+  series: "V-108/128/138/148",
+  category: "VANE PUMP",
+  koreanCategory: "정용량형 베인 펌프",
+  headline: "정용량형 2연 베인 펌프\nV-108·128·138·148",
+  englishTitle: "Double fixed displacement vane pumps V-108,128,138,148 series",
+  lead: "V-108·128·138·148 2연 정용량형 베인 펌프의 용량 조합과 기본 사양입니다.",
+  image: asset("v-108-series", "product"),
+  imageAlt: "V-108·128·138·148 2연 정용량형 베인 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "DOUBLE FIXED\nVANE PUMP",
+  technicalProductImage: asset("v-108-series", "product"),
+  structureImage: asset("v-108-series", "section"),
+  symbolImage: asset("v-108-series", "symbol"),
+  technicalTitle: "V-100 계열 카트리지를 조합한 2연 구성",
+  technicalDescription:
+    "V-108·128·138·148 시리즈는 1연과 2연 펌프 용량기호를 조합하는 정용량형 2연 베인 펌프입니다. 설치 방식과 회전방향을 포함해 시스템 구성을 검토할 수 있습니다.",
+  highlights: [
+    { label: "최고 사용압력", value: "7 MPa" },
+    { label: "최고 회전수", value: "1,800 min⁻¹" },
+    { label: "구성", value: "2연 용량 조합" },
+  ],
+  resources: resources("/catalogs/v-108-128-138-148.pdf"),
+  specification: {
+    title: "V-108·128·138·148 시리즈 기본 사양",
+    columns: vaneColumns,
+    rows: toRows([
+      ["V-108", "V-104-Y 조합", "7", "V-104 기준", "600", "17.3"],
+      ["V-128", "V-104-E 조합", "7", "V-104 기준", "600", "17.3"],
+      ["V-138", "V-134 조합", "7", "V-134 기준", "600", "31.7"],
+      ["V-148", "V-144 조합", "7", "V-144 기준", "600", "31.7"],
+    ]),
+    notes: [
+      "사용압력·회전수는 조합되는 단일계열 펌프 사양을 기준으로 확인해 주세요.",
+      "무게는 축측펌프 회전수 기준 대표값입니다.",
+    ],
+  },
+  modelCode: {
+    example: "(F3)-V-108-YE-10-(LH)-JA-(S36)-J",
+    groups: [
+      [["1", "(F3)"]],
+      [["2", "V-108"]],
+      [["3", "YE"]],
+      [["4", "10"]],
+      [["5", "(LH)"]],
+      [["6", "JA"]],
+      [["7", "(S36)-J"]],
+    ],
+    items: [
+      ["1", "적용 작동유", "무기호 : 석유계 작동유", "F3 : 인산에스테르계 작동유"],
+      ["2", "정용량 2연 베인펌프", "V-108 / V-128 / V-138 / V-148"],
+      ["3", "1연·2연 펌프용량기호", "시리즈별 1연과 2연 용량기호를 조합"],
+      ["4", "디자인 번호", "10 : V-108 시리즈", "20 : V-128·138·148 시리즈"],
+      ["5", "회전방향", "무기호 : 우회전", "LH : 좌회전"],
+      ["6", "설치·관리기호", "JA"],
+      ["7", "특수기호", "S36 : 물·글리콜계 작동유"],
+    ],
+  },
+};
+
+const v20v30 = {
+  slug: "v20-v30",
+  title: "정용량형 베인 펌프 V20/30 시리즈",
+  series: "V20/30",
+  category: "VANE PUMP",
+  koreanCategory: "정용량형 베인 펌프",
+  headline: "정용량형 베인 펌프\nV20/30 시리즈",
+  englishTitle: "Fixed displacement vane pumps V20/30 series",
+  lead: "V20·V30 정용량형 베인 펌프의 형식, 용량기호와 기본 사양을 확인할 수 있습니다.",
+  image: asset("v20-30-series", "product"),
+  imageAlt: "V20/30 정용량형 베인 펌프",
+  heroImageClass: "object-contain",
+  visualCaption: "FIXED DISPLACEMENT\nVANE PUMP",
+  technicalProductImage: asset("v20-30-series", "product"),
+  structureImage: asset("v20-30-series", "section"),
+  symbolImage: asset("v20-30-series", "symbol"),
+  technicalTitle: "18.9 – 90 L/min 범위의 정용량형 베인 펌프",
+  technicalDescription:
+    "V20/30 시리즈는 용량기호와 포트 배관방식, 축단형상 및 회전방향을 선택할 수 있는 정용량형 베인 펌프입니다. V20과 V30 모델별 운전 압력·회전수 범위를 제공합니다.",
+  highlights: [
+    { label: "최고 사용압력", value: "17.5 MPa" },
+    { label: "최고 회전수", value: "3,400 min⁻¹" },
+    { label: "토출량 범위", value: "18.9 – 90 L/min" },
+  ],
+  resources: resources("/catalogs/v20-v30.pdf"),
+  specification: {
+    title: "V20/30 시리즈 표준 사양",
+    columns: vaneColumns,
+    rows: toRows([
+      ["V20", "18.9 – 42.6", "17.5", "2,400 – 3,400", "600", "7.3 / 9.6"],
+      ["V30", "47 – 90", "15.4 – 17.5", "1,800 – 2,400", "600", "카탈로그 참조"],
+    ]),
+    notes: [
+      "토출량은 1,000 min⁻¹, 0.7 MPa 조건의 대표값입니다.",
+      "V20 용량기호 12·13과 V30 용량기호 17 – 28은 최고 사용압력 15.4 MPa입니다.",
+    ],
+  },
+  modelCode: {
+    example: "(F3)-V20-1P6S-1C11(L)-JA-(J)",
+    groups: [
+      [["1", "(F3)"]],
+      [["2", "V20"]],
+      [
+        ["3", "1"],
+        ["4", "P"],
+        ["5", "6"],
+        ["6", "S"],
+      ],
+      [
+        ["7", "1"],
+        ["8", "C"],
+        ["9", "11"],
+        ["10", "(L)"],
+      ],
+      [["11", "JA-(J)"]],
+    ],
+    items: [
+      ["1", "적용 작동유", "무기호 : 석유계 작동유", "F3 : 인산에스테르계 작동유"],
+      ["2", "정용량 베인펌프", "V20 / V30 시리즈"],
+      ["3", "1연(축측) 펌프 취부방식", "1 : 플랜지 취부형", "2 : FOOT 취부형"],
+      ["4", "흡입포트 위치", "FOOT 취부면 기준 위치"],
+      ["5", "펌프용량기호", "V20 : 6, 7, 8, 9, 11, 12, 13", "V30 : 15, 17, 21, 24, 28"],
+      ["6", "토출포트 배관방식", "F : 플랜지 접속", "P : 관용 테이퍼나사 접속\nS : SAE O-ring seal 접속"],
+      ["7", "축단형상", "1 : 1사각키 부착 평행축", "3 : 반달키축\n11 : 인볼류트 스플라인축"],
+      ["8", "토출포트 위치", "A/B/C/D : 커버측 기준 위치"],
+      ["9", "디자인 번호", "V20 : 11", "V30 : 10"],
+      ["10", "회전방향", "무기호 : 우회전", "L : 좌회전"],
+      ["11", "관리기호", "무기호 : 표준", "이름나사 접속인 경우에만 J 기입"],
+    ],
+  },
+};
+
+export const catalogProducts = [
+  domesticPiston,
+  sqpSingle,
+  sqpDouble,
+  sqpTriple,
+  vqSingle,
+  vqDouble,
+  v104,
+  v108,
+  v20v30,
+];
+
+export function getCatalogProduct(slug) {
+  return catalogProducts.find((product) => product.slug === slug);
+}

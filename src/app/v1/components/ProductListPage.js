@@ -1,37 +1,41 @@
-const products = [
+import Link from "next/link";
+
+import { allProducts, getProductUrl } from "@/data/products";
+
+const productGroups = [
   {
-    series: "P**V",
-    title: "저소음 가변용량형 피스톤 펌프",
+    id: "piston-pumps",
+    number: "01",
+    title: "피스톤 펌프",
     description:
-      "다양한 제어 방식과 16 - 130 cm³/rev 용적을 지원하는 P**V 시리즈",
-    href: "/",
-    image: "/piston-pump-pv-series.png",
-    pressure: "21 MPa",
+      "제품 시리즈를 선택하면 모델·사양과 전용 카탈로그를 확인할 수 있습니다.",
+    products: allProducts.filter((product) => product.category === "PISTON PUMP"),
   },
   {
-    series: "PH",
-    title: "저소음고압 가변용량형 피스톤 펌프",
-    description: "고압 유압 회로에 대응하는 PH80 · PH100 · PH130 시리즈",
-    href: "/ph-series",
-    image: "/piston-pump-ph-series.png",
-    pressure: "최고 30 MPa",
+    id: "vane-pumps",
+    number: "02",
+    title: "정용량형 베인 펌프",
+    description:
+      "1연·2연·3연 구성과 차량용·산업용 정용량형 베인 펌프를 확인할 수 있습니다.",
+    products: allProducts.filter((product) => product.category === "VANE PUMP"),
   },
 ];
 
-export default function Products() {
+export default function ProductListPage() {
   return (
-    <main className="min-h-screen bg-[#f7f9fa] text-[#15253a]">
+    <main id="top" className="min-h-screen bg-[#f7f9fa] text-[#15253a]">
       <header className="sticky top-0 z-20 flex h-[82px] items-center justify-between border-b border-[#edf0f2] bg-white px-[clamp(24px,6vw,100px)] max-[760px]:h-[70px] max-[760px]:px-5">
-        <a href="/products">
+        <Link href="/v1">
           <img
             className="w-[154px] max-[760px]:w-[133px]"
             src="/tokimec_logo.png"
             alt="한국도키멕 TOKIMEC"
           />
-        </a>
+        </Link>
         <nav className="flex gap-[34px] text-sm font-bold text-[#52616f] max-[760px]:hidden">
-          <a href="/products">제품소개</a>
+          <Link href="/v1">제품소개</Link>
           <a href="#piston-pumps">피스톤 펌프</a>
+          <a href="#vane-pumps">베인 펌프</a>
         </nav>
         <a
           className="bg-[#15253a] px-4 py-[11px] text-[13px] font-bold text-white max-[760px]:hidden"
@@ -48,36 +52,36 @@ export default function Products() {
           제품소개
         </h1>
         <span className="mt-8 block text-xs text-[#a8bfcb]">
-          유압기기 <b className="mx-2 text-[#50b6df]">›</b> 펌프{" "}
-          <b className="mx-2 text-[#50b6df]">›</b> 피스톤 펌프
+          유압기기 <b className="mx-2 text-[#50b6df]">›</b> 펌프
         </span>
       </section>
-      <section
-        className="mx-auto grid max-w-[1176px] grid-cols-[250px_1fr] gap-[clamp(42px,8vw,120px)] px-0 py-[100px] max-[760px]:grid-cols-1 max-[760px]:gap-10 max-[760px]:px-5 max-[760px]:py-[65px]"
-        id="piston-pumps"
-      >
-        <aside>
-          <p className="m-0 text-[10px] font-extrabold tracking-[.14em] text-[#147fac]">
-            HYDRAULICS
-          </p>
-          <strong className="mt-5 block text-[44px] tracking-[-.08em] text-[#125a82]">
-            01
-          </strong>
-          <h2 className="mb-6 mt-0 text-3xl tracking-[-.07em]">피스톤 펌프</h2>
-          <span className="break-keep text-sm leading-[1.65] text-[#70818b]">
-            제품 시리즈를 선택하면 모델·사양과 전용 카탈로그를 확인할 수
-            있습니다.
-          </span>
-        </aside>
-        <div className="grid grid-cols-2 gap-[18px] max-[760px]:grid-cols-1">
-          {products.map((product) => (
-            <a
+      {productGroups.map((group) => (
+        <section
+          className="mx-auto grid max-w-[1176px] grid-cols-[250px_1fr] gap-[clamp(42px,8vw,120px)] px-0 py-[100px] first:pt-[100px] max-[760px]:grid-cols-1 max-[760px]:gap-10 max-[760px]:px-5 max-[760px]:py-[65px]"
+          id={group.id}
+          key={group.id}
+        >
+          <aside>
+            <p className="m-0 text-[10px] font-extrabold tracking-[.14em] text-[#147fac]">
+              HYDRAULICS
+            </p>
+            <strong className="mt-5 block text-[44px] tracking-[-.08em] text-[#125a82]">
+              {group.number}
+            </strong>
+            <h2 className="mb-6 mt-0 text-3xl tracking-[-.07em]">{group.title}</h2>
+            <span className="break-keep text-sm leading-[1.65] text-[#70818b]">
+              {group.description}
+            </span>
+          </aside>
+          <div className="grid grid-cols-2 gap-[18px] max-[760px]:grid-cols-1">
+          {group.products.map((product) => (
+            <Link
               className="grid grid-rows-[auto_1fr_auto] overflow-hidden border border-[#d5e2e7] bg-white transition hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(24,66,89,.12)]"
-              href={product.href}
-              key={product.series}
+              href={getProductUrl(product)}
+              key={product.slug}
             >
               <div className="flex justify-between border-b border-[#e1ebee] px-5 py-[17px] text-[10px] font-extrabold tracking-[.12em] text-[#6b7b85]">
-                <span>PISTON PUMP</span>
+                <span>{product.category ?? "PISTON PUMP"}</span>
                 <strong className="text-[17px] tracking-normal text-[#1686b7]">
                   {product.series}
                 </strong>
@@ -85,24 +89,25 @@ export default function Products() {
               <img
                 className="h-[210px] w-full bg-[#edf6f8] p-[22px] object-contain mix-blend-multiply max-[760px]:h-[200px]"
                 src={product.image}
-                alt={`${product.series} 시리즈 피스톤 펌프`}
+                alt={`${product.series} 시리즈 제품`}
               />
               <section className="p-[21px]">
                 <p className="m-0 break-keep text-[22px] font-extrabold tracking-[-.055em] text-[#173550]">
                   {product.title}
                 </p>
                 <span className="mt-[9px] block min-h-[41px] break-keep text-xs leading-[1.55] text-[#64757f]">
-                  {product.description}
+                  {product.lead}
                 </span>
                 <b className="mt-[19px] flex justify-between border-t border-[#e0e9ec] pt-4 text-xs text-[#5b7180]">
-                  최고 사용압력 {product.pressure}{" "}
+                  최고 사용압력 {product.highlights[0].value}{" "}
                   <i className="not-italic text-[#1479a8]">제품 보기 →</i>
                 </b>
               </section>
-            </a>
+            </Link>
           ))}
-        </div>
-      </section>
+          </div>
+        </section>
+      ))}
       <footer className="flex min-h-[150px] items-center justify-between gap-6 border-t border-[#e1e8eb] bg-white px-[max(32px,calc((100vw-1176px)/2))] py-[38px] max-[760px]:flex-col max-[760px]:items-start max-[760px]:px-6 max-[760px]:py-7">
         <img
           className="w-[135px]"
