@@ -19,6 +19,15 @@ if (header) {
     sync();
   }
 }
+const catalogPreviewMedia = window.matchMedia('(min-width: 761px)');
+const loadCatalogPreviews = () => {
+  if (!catalogPreviewMedia.matches) return;
+  document.querySelectorAll('iframe[data-catalog-src]').forEach((iframe) => {
+    if (!iframe.hasAttribute('src')) iframe.src = iframe.dataset.catalogSrc;
+  });
+};
+loadCatalogPreviews();
+catalogPreviewMedia.addEventListener?.('change', loadCatalogPreviews);
 document.querySelectorAll('[data-footer]').forEach((footer) => { footer.className = 'footer'; footer.innerHTML = '<div class="footer-social"><a href="https://blog.naver.com/tokimec">N</a><a href="https://youtube.com">▶</a></div><nav><a href="index.html">홈</a><a href="business-products.html">사업&제품정보</a><a href="support.html">고객지원</a><a href="recruit.html">인재채용</a><a href="company.html">회사소개</a><a href="../../versions.html">6개 버전</a></nav><p>한국도키멕주식회사</p><p>TEL) 02-2670-4632~6 · FAX) 02-2672-5712</p><p>서울시 영등포구 선유로70 우리벤처타운II</p><small>Copyright ⓒ 2026 한국도키멕주식회사 All rights reserved.</small>' });
 const hero = document.querySelector('[data-hero]'); if (hero) { const slides = ['../../v3-hero-press.jpg', '../../v3-hero-indexpack.png', '../../v3-hero-hydraulic.png', '../../v3-hero-cylinder.png']; let active = 0; const controls = document.createElement('div'); controls.className = 'hero-controls'; controls.innerHTML = slides.map((_, i) => `<button class="${i === 0 ? 'active' : ''}" data-slide="${i}">0${i + 1}</button>`).join(''); hero.append(controls); const show = (i) => { active = i; hero.style.backgroundImage = `url(${slides[i]})`; controls.querySelectorAll('button').forEach((b, n) => b.classList.toggle('active', n === i)) }; controls.addEventListener('click', (e) => { const b = e.target.closest('[data-slide]'); if (b) show(Number(b.dataset.slide)) }); show(0); setInterval(() => show((active + 1) % slides.length), 6000) }
 const trigger = document.querySelector('[data-lightbox-trigger]'), lightbox = document.querySelector('[data-lightbox]'); if (trigger && lightbox) { trigger.addEventListener('click', () => lightbox.classList.add('open')); lightbox.addEventListener('click', (e) => { if (e.target === lightbox || e.target.closest('button')) lightbox.classList.remove('open') }); addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open') }) }

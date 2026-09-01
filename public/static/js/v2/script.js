@@ -11,4 +11,14 @@ if(staticHeader&&!staticHeader.querySelector('[data-version-index-link]')){
   const brandLink=staticHeader.querySelector('a');
   staticHeader.insertBefore(versionIndexLink,brandLink?.nextSibling??null);
 }
+
+const catalogPreviewMedia=window.matchMedia('(min-width: 761px)');
+const loadCatalogPreviews=()=>{
+  if(!catalogPreviewMedia.matches)return;
+  document.querySelectorAll('iframe[data-catalog-src]').forEach((iframe)=>{
+    if(!iframe.hasAttribute('src'))iframe.src=iframe.dataset.catalogSrc;
+  });
+};
+loadCatalogPreviews();
+catalogPreviewMedia.addEventListener?.('change',loadCatalogPreviews);
 // HTML v2 interactions
