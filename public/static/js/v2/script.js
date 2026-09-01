@@ -8,6 +8,7 @@ if(staticHeader&&!staticHeader.querySelector('[data-version-index-link]')){
   versionIndexLink.dataset.versionIndexLink='';
   versionIndexLink.setAttribute('aria-label','홈페이지 시안 선택 화면으로 이동');
   versionIndexLink.textContent='시안 선택';
-  staticHeader.append(versionIndexLink);
+  const brandLink=staticHeader.querySelector('a');
+  staticHeader.insertBefore(versionIndexLink,brandLink?.nextSibling??null);
 }
 // HTML v2 interactions

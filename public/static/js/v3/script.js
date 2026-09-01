@@ -11,7 +11,7 @@ if (header) {
   ];
 
   header.className = `header${overlay ? ' overlay' : ''}`;
-  header.innerHTML = `<a class="brand" href="index.html"><img src="../../tokimec_logo.png" alt="한국도키멕"></a><nav class="nav">${menus.map(([key, label, href, children]) => `<div class="nav-item ${active === key ? 'active' : ''}"><a href="${href}">${label}</a>${children.length ? `<div class="submenu">${children.map(([label, href]) => `<a href="${href}">${label}</a>`).join('')}</div>` : ''}</div>`).join('')}</nav><a class="version-index-link" href="../../index.html" aria-label="홈페이지 시안 선택 화면으로 이동">시안 선택</a>`;
+  header.innerHTML = `<a class="brand" href="index.html"><img src="../../tokimec_logo.png" alt="한국도키멕"></a><a class="version-index-link" href="../../index.html" aria-label="홈페이지 시안 선택 화면으로 이동">시안 선택</a><nav class="nav">${menus.map(([key, label, href, children]) => `<div class="nav-item ${active === key ? 'active' : ''}"><a href="${href}">${label}</a>${children.length ? `<div class="submenu">${children.map(([label, href]) => `<a href="${href}">${label}</a>`).join('')}</div>` : ''}</div>`).join('')}</nav>`;
 
   if (overlay) {
     const sync = () => header.classList.toggle('scrolled', scrollY > 20);
