@@ -371,6 +371,7 @@ function makeProductsPage() {
       </section>
     </main>
     <footer class="footer"><img class="logo" src="../../tokimec_logo.png" alt="한국도키멕 TOKIMEC" /><p>제품 시리즈를 선택해 기술 자료와 기본 사양을 확인하세요.</p></footer>
+    <script src="../../static/js/v1/script.js"></script>
   </body>
 </html>
 `;

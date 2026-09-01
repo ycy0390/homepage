@@ -4,6 +4,17 @@ const resourceGrid=document.querySelector('[data-resource-grid]');
 const modal=document.querySelector('[data-resource-modal]');
 let selectedResource=null;
 
+const staticHeader=document.querySelector('.header');
+if(staticHeader&&!staticHeader.querySelector('[data-version-index-link]')){
+  const versionIndexLink=document.createElement('a');
+  versionIndexLink.className='version-index-link';
+  versionIndexLink.href='../../index.html';
+  versionIndexLink.dataset.versionIndexLink='';
+  versionIndexLink.setAttribute('aria-label','홈페이지 시안 선택 화면으로 이동');
+  versionIndexLink.textContent='시안 선택';
+  staticHeader.append(versionIndexLink);
+}
+
 document.querySelectorAll('.visual-caption,.spec-table th').forEach((element)=>{
   element.innerHTML=element.innerHTML.replace(/\\n/g,'<br>');
 });
