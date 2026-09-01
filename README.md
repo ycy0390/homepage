@@ -101,7 +101,7 @@ HTML 버전은 Next.js를 사용하지 않는 별도 결과물입니다. 두 가
 
 | 버전 | 시작 주소 |
 |---|---|
-| HTML v1 | `http://localhost:3000/html/v1/index.html` |
+| HTML v1 | `http://localhost:3000/html/v1/products.html` |
 | HTML v2 | `http://localhost:3000/html/v2/index.html` |
 | HTML v3 | `http://localhost:3000/html/v3/index.html` |
 
@@ -116,12 +116,12 @@ npx serve public -l 8080
 그다음 아래 주소로 접속합니다.
 
 ```text
-http://localhost:8080/html/v1/index.html
+http://localhost:8080/html/v1/products.html
 http://localhost:8080/html/v2/index.html
 http://localhost:8080/html/v3/index.html
 ```
 
-HTML 파일은 이미지·CSS·JavaScript·PDF를 상대경로로 연결하므로 탐색기에서 `public/html/v1/index.html`, `v2/index.html`, `v3/index.html`을 더블클릭해도 표시됩니다. 다만 브라우저의 보안 정책에 따라 PDF iframe이 제한될 수 있으며, 그 경우 PDF 다운로드 링크를 사용하거나 위와 같이 로컬 서버로 여십시오.
+HTML 파일은 이미지·CSS·JavaScript·PDF를 상대경로로 연결하므로 탐색기에서 `public/html/v1/products.html`, `v2/index.html`, `v3/index.html`을 더블클릭해도 표시됩니다. 다만 브라우저의 보안 정책에 따라 PDF iframe이 제한될 수 있으며, 그 경우 PDF 다운로드 링크를 사용하거나 위와 같이 로컬 서버로 여십시오.
 
 ### 방법 C - HHTML 파일 직접 실행
 

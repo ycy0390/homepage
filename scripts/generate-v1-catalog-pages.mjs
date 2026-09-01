@@ -315,7 +315,7 @@ function makeProductsPage() {
   );
   const legacyPistonCards = [
     {
-      href: "index.html",
+      href: "pv-series.html",
       category: "PISTON PUMP / P**V SERIES",
       image: "../../piston-pump-pv-series.png",
       alt: "P**V",
