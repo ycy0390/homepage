@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+// V3 모든 페이지가 공유하는 내비게이션 구조와 헤더·푸터 컴포넌트입니다.
 const menus = [
   { key: "home", label: "홈", href: "/v3" },
   {
@@ -54,9 +55,11 @@ const menus = [
   },
 ];
 
+// active로 현재 메뉴를 표시하고, overlay는 메인 히어로 위 투명 헤더에만 사용합니다.
 export function V3Header({ active = "home", overlay = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // 투명 헤더는 스크롤 뒤 흰 배경으로 바꿔 메뉴 가독성을 확보합니다.
   useEffect(() => {
     if (!overlay) return;
     const sync = () => setIsScrolled(window.scrollY > 20);
@@ -65,6 +68,7 @@ export function V3Header({ active = "home", overlay = false }) {
     return () => window.removeEventListener("scroll", sync);
   }, [overlay]);
 
+  // 스크롤 상태에 따라 위치와 글자 색상 클래스를 조합합니다.
   const position = overlay
     ? isScrolled
       ? "fixed inset-x-0 top-0 h-[151px] bg-white shadow-[0_1px_0_rgba(0,0,0,.025)] max-[760px]:relative max-[760px]:h-[115px]"
@@ -125,6 +129,7 @@ export function V3Header({ active = "home", overlay = false }) {
   );
 }
 
+// 메뉴 데이터와 회사 정보를 재사용하는 V3 공용 푸터입니다.
 export function V3Footer() {
   return (
     <footer className="flex min-h-0 flex-col items-center gap-0 bg-white px-5 pb-2 pt-[25px] text-center text-[11px] text-[#4a4a4a] max-[760px]:px-[15px] max-[760px]:pb-[13px] max-[760px]:pt-[31px]">

@@ -1,5 +1,6 @@
 import "./tailwind.css";
 
+// 모든 Next.js 경로에 적용되는 문서 언어와 기본 메타데이터를 정의합니다.
 export const metadata = {
   title: "한국도키멕 홈페이지 시안",
   description: "한국도키멕 홈페이지 v1, v2, v3 시안 선택 화면",

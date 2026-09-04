@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+// V3 메인에서 사용하는 자동 전환 히어로입니다. 이미지는 배열 순서대로 순환합니다.
 const slides = [
   { image: "/v3-hero-press.jpg", label: "1번 메인 이미지" },
   { image: "/v3-hero-indexpack.png", label: "2번 메인 이미지" },
@@ -9,8 +10,10 @@ const slides = [
   { image: "/v3-hero-cylinder.png", label: "4번 메인 이미지" },
 ];
 
+// 수동 선택과 6초 자동 전환이 같은 active 상태를 공유합니다.
 export default function V3Hero() {
   const [active, setActive] = useState(0);
+  // 언마운트 시 인터벌을 해제해 중복 전환을 방지합니다.
   useEffect(() => {
     const id = window.setInterval(
       () => setActive((index) => (index + 1) % slides.length),

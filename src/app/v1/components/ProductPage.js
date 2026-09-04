@@ -3,12 +3,15 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+// V1 제품 상세의 공용 화면입니다. 제품 데이터만 바꿔 여러 시리즈를 동일한 구조로 렌더링합니다.
+// 아래 스타일 상수는 반복되는 자료 버튼과 섹션 제목의 표현을 통일하기 위한 것입니다.
 const resourceButtonClass =
   "inline-flex min-h-10 items-center justify-between gap-2 px-3 text-[12px] font-extrabold transition";
 
 const kicker =
   "mb-4 text-[11px] font-extrabold tracking-[.14em] text-[#1384ba]";
 
+// 이용 가능한 자료를 먼저 보여 주고, 같은 상태에서는 문서 성격에 따라 정렬합니다.
 const resourcePriority = {
   catalog: 1,
   outline: 2,
@@ -18,6 +21,7 @@ const resourcePriority = {
   manual: 6,
 };
 
+// 원본 배열을 변경하지 않고 화면 표시 전용 정렬 결과를 반환합니다.
 function sortResources(resources) {
   return [...resources].sort((first, second) => {
     const availability = Number(second.available) - Number(first.available);
@@ -28,6 +32,7 @@ function sortResources(resources) {
   });
 }
 
+// 자료의 공개 여부에 따라 클릭 가능한 버튼 또는 준비 중 안내를 렌더링합니다.
 function ResourceButton({ resource, isHighlighted, onRequest }) {
   const label = resource.available
     ? resource.label
@@ -62,6 +67,7 @@ function ResourceButton({ resource, isHighlighted, onRequest }) {
   );
 }
 
+// 문서 열기·다운로드 전에 저작권 및 사양 안내를 확인시키는 접근성 모달입니다.
 function ResourceUseModal({ resource, onClose, onConfirm }) {
   if (!resource) return null;
 
@@ -128,6 +134,7 @@ function ResourceUseModal({ resource, onClose, onConfirm }) {
   );
 }
 
+// 제품 외관·단면도·심벌 이미지를 하나의 기술 정보 그리드로 묶습니다.
 function TechnicalVisuals({ product }) {
   return (
     <div className="grid grid-cols-12 gap-4">
@@ -176,6 +183,7 @@ function TechnicalVisuals({ product }) {
   );
 }
 
+// 선택형 모델 코드가 있는 제품에만 형식 기호와 각 항목의 설명을 표시합니다.
 function ModelCode({ modelCode }) {
   if (!modelCode) return null;
 
@@ -262,6 +270,7 @@ function ModelCode({ modelCode }) {
   );
 }
 
+// 연속해서 같은 값이 이어지는 열만 병합해 사양표의 중복 표시를 줄입니다.
 function getRowSpan(rows, rowIndex, key, groupKey) {
   const value = rows[rowIndex][key];
   const groupValue = groupKey ? rows[rowIndex][groupKey] : undefined;
@@ -285,6 +294,7 @@ function getRowSpan(rows, rowIndex, key, groupKey) {
   return span;
 }
 
+// 데스크톱 표와 모바일 카드가 같은 specification 데이터를 공유하도록 구성합니다.
 function SpecificationTable({ specification }) {
   const primaryColumn = specification.columns[1];
   const detailColumns = specification.columns.slice(2);
@@ -380,6 +390,7 @@ function SpecificationTable({ specification }) {
   );
 }
 
+// 제품별로 선택 제공되는 보조 사양표입니다.
 function SupplementalSpecification({ specification }) {
   if (!specification) return null;
 
@@ -393,6 +404,7 @@ function SupplementalSpecification({ specification }) {
   );
 }
 
+// 히어로 바로 아래에서 비교가 필요한 대표 사양만 요약합니다.
 function KeyHighlights({ highlights }) {
   if (!highlights?.length) return null;
 
@@ -417,6 +429,7 @@ function KeyHighlights({ highlights }) {
   );
 }
 
+// 자료 모달·강조 애니메이션 상태를 관리하는 V1 제품 상세의 진입 컴포넌트입니다.
 export default function ProductPage({ product }) {
   const orderedResources = sortResources(product.resources);
   const productCategory = product.category ?? "PISTON PUMP";
@@ -425,6 +438,7 @@ export default function ProductPage({ product }) {
   const [selectedResource, setSelectedResource] = useState(null);
   const resourceHighlightTimer = useRef(null);
 
+  // 컴포넌트가 사라질 때 남아 있는 강조 타이머를 정리합니다.
   useEffect(
     () => () => {
       if (resourceHighlightTimer.current) {
@@ -434,6 +448,7 @@ export default function ProductPage({ product }) {
     [],
   );
 
+  // 모달이 열린 동안 배경 스크롤을 막고 Escape 키로 닫을 수 있게 합니다.
   useEffect(() => {
     if (!selectedResource) return undefined;
 
@@ -451,10 +466,12 @@ export default function ProductPage({ product }) {
     };
   }, [selectedResource]);
 
+  // 선택한 자료만 상태에 보관해 모달의 확인 동작과 연결합니다.
   function openResourceModal(resource) {
     setSelectedResource(resource);
   }
 
+  // 자료 설정에 따라 새 탭 열기 또는 브라우저 다운로드를 수행합니다.
   function confirmResourceUse() {
     if (!selectedResource?.file) {
       setSelectedResource(null);
@@ -478,6 +495,7 @@ export default function ProductPage({ product }) {
     setSelectedResource(null);
   }
 
+  // 하단 CTA에서 자료 버튼 영역으로 이동하고 잠시 강조 효과를 표시합니다.
   function showResourceButtons() {
     const topSection = document.getElementById("top");
 

@@ -1,6 +1,8 @@
+// 카탈로그 기반 제품의 공통 이미지 경로와 자료 버튼을 생성하는 데이터 도우미입니다.
 const asset = (slug, kind) =>
   `/product-details/catalog-products/${slug}-${kind}.png`;
 
+// 실제 제공 파일은 카탈로그만 활성화하고, 나머지는 준비 중 상태로 명시합니다.
 const resources = (catalog) => [
   {
     key: "catalog",
@@ -16,6 +18,7 @@ const resources = (catalog) => [
   { key: "manual", label: "취급설명서", action: "preview", available: false },
 ];
 
+// 일반 피스톤 펌프와 베인 펌프의 공통 사양표 열 정의입니다.
 const pistonColumns = [
   { key: "model", label: "형식" },
   { key: "displacement", label: "최대 이론용적\ncm³/rev" },
@@ -46,6 +49,7 @@ const toRows = (rows) =>
     }),
   );
 
+// SQP(S) 계열은 작동유별 조건이 달라 전용 열 정의와 행 생성기를 사용합니다.
 const sqpSpecificationColumns = [
   { key: "model", label: "형식" },
   { key: "capacityCode", label: "용량\n기호" },
@@ -67,6 +71,7 @@ const sqpWeightColumns = [
   { key: "sqpsFoot", label: "SQPS\nFOOT 취부\nkg" },
 ];
 
+// SQP(S) 용량 코드별 값에서 반복되는 기본 운전 조건을 채워 행을 만듭니다.
 const makeSqpSpecificationRows = (model, values) =>
   values.map(([capacityCode, flow, oilPressure = "17.5", glycolPressure = oilPressure]) => ({
     model,
@@ -123,6 +128,7 @@ const sqpSingleSpecificationRows = [
   ]),
 ];
 
+// 국산 피스톤 펌프와 베인 펌프 제품 데이터입니다. 각 객체는 V1 공용 상세 컴포넌트의 입력값입니다.
 const domesticPiston = {
   slug: "domestic-piston-pump",
   title: "국산 저소음 가변용량형 피스톤 펌프",
@@ -187,6 +193,7 @@ const domesticPiston = {
   },
 };
 
+// 단일형 SQP(S) 베인 펌프입니다.
 const sqpSingle = {
   slug: "sqp-sqps-single",
   title: "저소음 정용량형 1연 베인 펌프",
@@ -260,6 +267,7 @@ const sqpSingle = {
   },
 };
 
+// 2연형 SQP(S) 베인 펌프입니다.
 const sqpDouble = {
   slug: "sqp-sqps-double",
   title: "저소음 정용량형 2연 베인 펌프",
@@ -330,6 +338,7 @@ const sqpDouble = {
   },
 };
 
+// 3연형 SQP(S) 베인 펌프입니다.
 const sqpTriple = {
   slug: "sqp-triple",
   title: "저소음 정용량형 3연 베인 펌프",
@@ -401,6 +410,7 @@ const sqpTriple = {
   },
 };
 
+// 자동차용 단일형 VQ 베인 펌프입니다.
 const vqSingle = {
   slug: "vq-single",
   title: "차량용 고성능 1연 베인 펌프",
@@ -472,6 +482,7 @@ const vqSingle = {
   },
 };
 
+// 자동차용 2연형 VQ 베인 펌프입니다.
 const vqDouble = {
   slug: "vq-double",
   title: "차량용 고성능 2연 베인 펌프",
@@ -547,6 +558,7 @@ const vqDouble = {
   },
 };
 
+// 산업용 V104·124·134·144 계열입니다.
 const v104 = {
   slug: "v-104-124-134-144",
   title: "정용량형 베인 펌프 V-104·124·134·144",
@@ -609,6 +621,7 @@ const v104 = {
   },
 };
 
+// 산업용 V108·128·138·148 계열입니다.
 const v108 = {
   slug: "v-108-128-138-148",
   title: "정용량형 2연 베인 펌프 V-108·128·138·148",
@@ -671,6 +684,7 @@ const v108 = {
   },
 };
 
+// 고정용량형 V20·V30 계열입니다.
 const v20v30 = {
   slug: "v20-v30",
   title: "정용량형 베인 펌프 V20/30 시리즈",
@@ -743,6 +757,7 @@ const v20v30 = {
   },
 };
 
+// 카탈로그형 제품 전체를 한 배열로 내보내 제품 목록·정적 경로 생성에서 재사용합니다.
 export const catalogProducts = [
   domesticPiston,
   sqpSingle,
@@ -755,6 +770,7 @@ export const catalogProducts = [
   v20v30,
 ];
 
+// 필요 시 카탈로그 제품만 슬러그로 조회합니다.
 export function getCatalogProduct(slug) {
   return catalogProducts.find((product) => product.slug === slug);
 }

@@ -1,5 +1,6 @@
 "use client";
 
+// 서버 전송 없이 사용자의 기본 메일 프로그램을 열어 기술 문의를 작성하는 클라이언트 폼입니다.
 export default function InquiryForm({ seriesName }) {
   function handleSubmit(event) {
     event.preventDefault();
@@ -85,6 +86,7 @@ export default function InquiryForm({ seriesName }) {
   );
 }
 
+// 공통 레이블·입력 스타일을 재사용해 필드 간 표현을 일관되게 유지합니다.
 function FormField({ label, children }) {
   return (
     <label className="grid gap-2">

@@ -1,9 +1,11 @@
 import { V3Footer, V3Header } from "../components";
 
+// 회사소개 시안에서 반복 사용하는 이미지 표현과 본문 문구를 상수로 분리합니다.
 const visual = "block w-full object-cover";
 const copy =
   "mx-auto w-[min(812px,calc(100%-60px))] py-[75px] break-keep text-[15px] leading-[2] text-[#676767] max-[760px]:w-[calc(100%-40px)] max-[760px]:py-12 max-[760px]:text-[13px] max-[760px]:leading-[1.9] [&>p]:mb-6 [&>p]:mt-0 [&>p:last-child]:mb-0";
 
+// 회사 개요·대표 메시지·핵심 가치 정보를 한 페이지로 구성합니다.
 export default function V3CompanyPage() {
   return (
     <div className="min-h-screen bg-white font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#262d32]">

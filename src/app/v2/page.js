@@ -1,5 +1,6 @@
 import { V2Footer, V2Header, V2ProductCard, v2Products } from "./components";
 
+// V2 메인 시안: 대표 제품 카드와 회사·지원 진입 정보를 함께 제공합니다.
 export default function V2Home() {
   return (
     <div className="min-h-screen bg-[#f3f5f5] font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#121d27]">

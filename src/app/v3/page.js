@@ -2,6 +2,7 @@ import { V3Footer, V3Header } from "./components";
 import V3Hero from "./V3Hero";
 import V3MessageImage from "./V3MessageImage";
 
+// V3 메인 시안은 공용 레이아웃과 히어로·브랜드 메시지·파트너 영역을 조합합니다.
 export default function V3Home() {
   return (
     <div className="min-h-screen bg-white font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#262d32]">

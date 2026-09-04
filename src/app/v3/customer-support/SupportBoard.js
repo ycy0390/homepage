@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+// 실제 API 연동 전 화면 흐름을 검토할 수 있도록 둔 공지·뉴스 예시 데이터입니다.
 const notices = [
   [
     "37",
@@ -75,8 +76,10 @@ const notices = [
   ],
 ];
 
+// 검색어와 페이지 상태를 브라우저에서 관리하는 고객지원 게시판 시안입니다.
 export default function SupportBoard() {
   const [query, setQuery] = useState("");
+  // 제목에 검색어가 포함된 게시글만 화면에 남깁니다.
   const rows = useMemo(
     () =>
       notices.filter((notice) =>

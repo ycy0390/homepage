@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+// 버전별 시안을 독립적으로 검토할 수 있도록 제공하는 최상위 선택 화면입니다.
 const versions = [
   { label: "V1", href: "/v1" },
   { label: "V2", href: "/v2" },

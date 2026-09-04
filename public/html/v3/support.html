@@ -1,4 +1,8 @@
 <!doctype html>
+<!--
+  HTML V3 고객지원 시안입니다.
+  게시글은 예시 데이터이며, 검색 입력은 공용 스크립트에서 제목 기준의 클라이언트 측 필터로 동작합니다.
+-->
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
@@ -13,6 +17,7 @@
       <section class="board">
         <div class="board-top">
           <h1>공지&뉴스 <small>0</small></h1>
+          <!-- 실제 게시판 연동 전에도 검색 흐름을 검증할 수 있도록 data 속성으로 연결합니다. -->
           <input
             data-board-search
             placeholder="검색어를 입력하세요"
@@ -30,4 +35,3 @@
     <script src="../../static/js/v3/script.js"></script>
   </body>
 </html>
-<!-- HTML v3 -->

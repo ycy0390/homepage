@@ -1,3 +1,4 @@
+// V1 피스톤 펌프 상세 화면에 전달하는 시리즈별 콘텐츠와 사양 데이터입니다.
 const pistonColumns = [
   { key: "model", label: "형식" },
   { key: "displacement", label: "최대 이론용적\ncm³/rev" },
@@ -7,6 +8,7 @@ const pistonColumns = [
   { key: "weight", label: "무게\nkg" },
 ];
 
+// 원본 배열을 사양표 컴포넌트가 읽는 객체 배열로 변환합니다.
 const toRows = (rows) =>
   rows.map(
     ([model, displacement, pressure, maximumSpeed, minimumSpeed, weight]) => ({
@@ -19,6 +21,7 @@ const toRows = (rows) =>
     }),
   );
 
+// P**V 시리즈의 히어로·기술 이미지·자료 버튼·사양을 한 객체에 모읍니다.
 const pvSeries = {
   slug: "pv-series",
   title: "저소음 가변용량형 피스톤 펌프",
@@ -99,6 +102,7 @@ const pvSeries = {
   },
 };
 
+// PH 시리즈는 모델 코드와 고압 사양을 추가로 포함합니다.
 const phSeries = {
   slug: "ph-series",
   title: "저소음고압 가변용량형 피스톤 펌프",
@@ -194,4 +198,5 @@ const phSeries = {
   },
 };
 
+// 제품 목록과 동적 라우트에서 참조하는 피스톤 펌프 데이터의 공개 진입점입니다.
 export const pistonSeriesProducts = [pvSeries, phSeries];

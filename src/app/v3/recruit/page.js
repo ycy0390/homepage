@@ -1,6 +1,7 @@
 import { V3Footer, V3Header } from "../components";
 import RecruitGallery from "./RecruitGallery";
 
+// 채용 페이지의 복지 항목은 반복 카드로 렌더링할 수 있도록 데이터로 정의합니다.
 const benefits = [
   [
     "자녀 학자금 지원",
@@ -21,6 +22,7 @@ const benefits = [
   ["건강검진 지원", "임직원의 건강한 생활을 위한 검진을 지원합니다."],
 ];
 
+// 인재상·채용 절차·복지·현장 갤러리를 조합한 V3 채용 시안입니다.
 export default function V3RecruitPage() {
   return (
     <div className="min-h-screen bg-white font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#262d32]">

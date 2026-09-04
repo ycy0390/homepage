@@ -1,3 +1,4 @@
+// 사업·제품 관련 페이지에서 공통으로 쓰는 서브 비주얼과 좌측 카테고리 내비게이션입니다.
 export function SubHero({ trail }) {
   return (
     <section className="flex min-h-[285px] flex-col justify-center bg-[linear-gradient(105deg,#f3f7f8,#e4eef2)] px-[max(24px,calc((100vw-1180px)/2))] py-[70px] max-[760px]:min-h-[230px] max-[760px]:px-6 max-[760px]:py-[55px]">
@@ -15,6 +16,7 @@ export function SubHero({ trail }) {
   );
 }
 
+// 상세 페이지에서도 목록으로 돌아갈 수 있도록 동일한 제품 분류 링크를 제공합니다.
 export function BusinessSide() {
   return (
     <aside className="self-start border-t-2 border-[#2f3e46] max-[760px]:pt-[25px]">

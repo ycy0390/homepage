@@ -1,5 +1,6 @@
 import { V2Footer, V2Header, V2ProductCard, v2Products } from "../components";
 
+// V2의 전체 제품 목록 경로입니다. 카드 디자인은 공용 컴포넌트를 재사용합니다.
 export default function V2Products() {
   return (
     <div className="min-h-screen bg-[#f3f5f5] font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#121d27]">

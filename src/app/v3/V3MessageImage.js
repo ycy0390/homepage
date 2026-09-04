@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 
+// 메인 메시지 이미지를 확대해 볼 수 있는 접근성 모달용 클라이언트 컴포넌트입니다.
 export default function V3MessageImage() {
   const [isOpen, setIsOpen] = useState(false);
 
+  // 확대 상태에서는 배경 스크롤을 막고 Escape 키를 닫기 동작으로 사용합니다.
   useEffect(() => {
     function onKeyDown(event) {
       if (event.key === "Escape") setIsOpen(false);

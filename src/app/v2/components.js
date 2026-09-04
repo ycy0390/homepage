@@ -1,3 +1,4 @@
+// V2 홈·목록·상세 화면이 공유하는 피스톤 펌프 시리즈 데이터입니다.
 export const v2Products = [
   {
     series: "P**V",
@@ -53,6 +54,7 @@ export const v2Products = [
   },
 ];
 
+// 현재 경로를 받아 활성 메뉴를 표시하는 V2 공용 헤더입니다.
 export function V2Header({ active }) {
   return (
     <header className="grid h-[86px] grid-cols-[1fr_auto_1fr] items-center border-b border-[#d7dfe3] bg-white px-[clamp(24px,5vw,80px)] max-[760px]:h-[68px] max-[760px]:grid-cols-[1fr_auto] max-[760px]:px-5">
@@ -102,6 +104,7 @@ export function V2Header({ active }) {
   );
 }
 
+// V2 화면에서 공통 회사 정보를 보여 주는 푸터입니다.
 export function V2Footer() {
   return (
     <footer className="grid min-h-[170px] grid-cols-[1fr_1.5fr_1fr] items-center gap-6 bg-white px-[max(24px,calc((100vw-1180px)/2))] py-[39px] text-xs text-[#60707c] max-[760px]:grid-cols-1 max-[760px]:gap-[13px] max-[760px]:px-6 max-[760px]:py-8">
@@ -120,6 +123,7 @@ export function V2Footer() {
   );
 }
 
+// 목록·홈의 반복 카드에 제품 데이터 하나를 렌더링합니다.
 export function V2ProductCard({ product }) {
   return (
     <a
@@ -160,6 +164,7 @@ export function V2ProductCard({ product }) {
   );
 }
 
+// 선택한 제품 데이터를 받아 제품 개요·모델·카탈로그 영역을 구성합니다.
 export function V2ProductDetail({ product }) {
   return (
     <div className="min-h-screen bg-[#f3f5f5] font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#121d27]">

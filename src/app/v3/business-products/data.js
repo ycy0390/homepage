@@ -1,3 +1,4 @@
+// V3 사업·제품 목록과 상세 라우트가 공유하는 피스톤 펌프의 요약 데이터입니다.
 export const pistonPumps = [
   {
     slug: "pv-series",

@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { allProducts, getProductUrl } from "@/data/products";
 
+// V1 목록 화면은 통합 상품 데이터를 카테고리별로 나누어 노출합니다.
 const productGroups = [
   {
     id: "piston-pumps",
@@ -21,6 +22,7 @@ const productGroups = [
   },
 ];
 
+// 제품 카드를 동적 경로 상세 화면으로 연결하는 V1 제품 목록 페이지입니다.
 export default function ProductListPage() {
   return (
     <main id="top" className="min-h-screen bg-[#f7f9fa] text-[#15253a]">

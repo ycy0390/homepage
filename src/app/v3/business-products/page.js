@@ -2,6 +2,7 @@ import { V3Footer, V3Header } from "../components";
 import { BusinessSide, SubHero } from "./BusinessShell";
 import { pistonPumps } from "./data";
 
+// V3 제품 목록: 데이터 배열을 카드로 반복 렌더링하고 상세 라우트로 연결합니다.
 export default function BusinessProducts() {
   return (
     <div className="min-h-screen bg-white font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#262d32]">

@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 
+// 채용 현장 이미지는 파일명 규칙을 이용해 배열로 생성하고 순환 표시합니다.
 const slides = Array.from(
   { length: 9 },
   (_, index) => `/v3-recruit-slide-${String(index + 1).padStart(2, "0")}.png`,
 );
 
+// 점 버튼의 수동 선택과 자동 전환이 같은 현재 인덱스를 사용합니다.
 export default function RecruitGallery() {
   const [active, setActive] = useState(5);
+  // 페이지 이탈 뒤에도 타이머가 남지 않도록 정리 함수를 반환합니다.
   useEffect(() => {
     const timer = window.setInterval(
       () => setActive((current) => (current + 1) % slides.length),

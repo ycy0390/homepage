@@ -1,6 +1,8 @@
 import { V3Footer, V3Header } from "../components";
 import { BusinessSide, SubHero } from "./BusinessShell";
 
+// V3 피스톤 펌프 상세 화면입니다. PH와 P**V의 공통 레이아웃 안에 시리즈별 기술 섹션을 선택해 넣습니다.
+// 표에 쓰이는 모델·형식 코드 데이터는 화면 컴포넌트에서 가까운 위치에 두어 원본 카탈로그 대조를 쉽게 합니다.
 const pvModels = [
   ["P16V", "16", "15"],
   ["P21V", "21", "23"],
@@ -75,12 +77,14 @@ const phCodeItems = [
   ["12", "관리기호", "S38 : TL / TH형에 적용", "무기호 : 그 외"],
 ];
 
+// 두 사양표에서 반복되는 테이블 스타일을 상수로 관리합니다.
 const tableClass =
   "w-full min-w-[680px] border-collapse text-center text-[13px] text-[#344750]";
 const thClass =
   "border border-[#cfdade] bg-[#eef6f8] px-3 py-3 font-extrabold leading-[1.35] text-[#33505e]";
 const tdClass = "border border-[#d7e0e3] px-3 py-[11px] font-semibold";
 
+// 제품·단면도·유압 심벌에 동일한 이미지 프레임을 적용합니다.
 function TechnicalFigure({ src, alt, label, className = "" }) {
   return (
     <figure
@@ -100,6 +104,7 @@ function TechnicalFigure({ src, alt, label, className = "" }) {
   );
 }
 
+// 기술 섹션의 영문 구분자, 제목, 설명을 동일한 형식으로 출력합니다.
 function SectionTitle({ eyebrow, title, description }) {
   return (
     <header className="mb-8 grid grid-cols-[220px_1fr] gap-8 max-[760px]:grid-cols-1 max-[760px]:gap-3">
@@ -120,6 +125,7 @@ function SectionTitle({ eyebrow, title, description }) {
   );
 }
 
+// P**V에만 필요한 구조 설명과 일반 사양표를 렌더링합니다.
 function PvTechnicalDetails() {
   return (
     <section className="col-span-full mt-20 min-w-0 border-t border-[#cbd6da] pt-16 max-[760px]:mt-14 max-[760px]:pt-11">
@@ -167,6 +173,7 @@ function PvTechnicalDetails() {
   );
 }
 
+// 모델별 값과 공통 값을 rowSpan으로 묶어 P**V 사양을 표기합니다.
 function PvSpecification() {
   return (
     <section className="mt-16 min-w-0">
@@ -298,6 +305,7 @@ function PvSpecification() {
   );
 }
 
+// PH·P**V 사양표에서 재사용하는 제목과 단위 안내입니다.
 function SpecHeader() {
   return (
     <div className="mb-6 flex items-end justify-between gap-5 border-b-[3px] border-[#129fbe] pb-4 max-[760px]:items-start max-[760px]:flex-col">
@@ -314,6 +322,7 @@ function SpecHeader() {
   );
 }
 
+// PH에만 필요한 고압 사양·형식 코드 안내를 포함한 기술 섹션입니다.
 function PhTechnicalDetails() {
   return (
     <section className="col-span-full mt-20 min-w-0 border-t border-[#cbd6da] pt-16 max-[760px]:mt-14 max-[760px]:pt-11">
@@ -361,6 +370,7 @@ function PhTechnicalDetails() {
   );
 }
 
+// PH100 예시의 번호와 선택 항목 설명을 대응시켜 형식 읽는 법을 제공합니다.
 function PhModelCode() {
   return (
     <section className="mt-16 min-w-0">
@@ -425,6 +435,7 @@ function PhModelCode() {
   );
 }
 
+// 데스크톱 표와 모바일 카드에 동일한 PH 모델 데이터를 반복 사용합니다.
 function PhSpecification() {
   return (
     <section className="mt-16 min-w-0">
@@ -549,6 +560,7 @@ function PhSpecification() {
   );
 }
 
+// 슬러그로 시리즈 전용 기술 섹션을 분기합니다. 새 시리즈 추가 시 이 지점을 확장합니다.
 function ProductTechnicalDetails({ pump }) {
   return pump.slug === "pv-series" ? (
     <PvTechnicalDetails />
@@ -557,6 +569,7 @@ function ProductTechnicalDetails({ pump }) {
   );
 }
 
+// 상단 개요·기술 상세·카탈로그를 조합하는 V3 제품 상세의 공용 진입점입니다.
 export default function ProductDetail({ pump }) {
   return (
     <div className="min-h-screen bg-white font-[Arial,'Noto_Sans_KR',sans-serif] tracking-[-.035em] text-[#262d32]">
