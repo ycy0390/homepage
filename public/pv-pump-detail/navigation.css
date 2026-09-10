@@ -1,0 +1,24 @@
+/* 두 P**V 시안에만 사용하는 선택 화면 복귀 버튼. */
+.proposal-return {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  margin-left: auto;
+  padding: 10px 17px;
+  border: 1px solid #b9cbd7;
+  border-radius: 2px;
+  color: #234d70;
+  background: #fff;
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.proposal-return:hover { border-color: #234d70; background: #f0f6f9; }
+.proposal-return:focus-visible { outline: 3px solid #2679bd; outline-offset: 4px; }
+@media (max-width: 600px) {
+  .proposal-return { gap: 6px; padding: 9px 12px; font-size: .875rem; }
+}

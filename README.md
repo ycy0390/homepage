@@ -1,14 +1,18 @@
 # 한국도키멕 홈페이지 프로토타입
 
-## 현재 GitHub Pages 첫 화면 — P**V 제품 상세
+## 현재 GitHub Pages 첫 화면 — P**V 상세페이지 시안 선택
 
-GitHub Pages는 `.github/workflows/deploy-pages.yml`을 통해 `main` 브랜치의 `public/` 폴더를 그대로 배포합니다. 현재 첫 화면은 독립적으로 새로 만든 P**V 상세페이지입니다. Next.js 빌드는 필요하지 않습니다.
+GitHub Pages는 `.github/workflows/deploy-pages.yml`을 통해 `main` 브랜치의 `public/` 폴더를 그대로 배포합니다. 첫 화면에서 아래 두 상세페이지 시안을 선택합니다. Next.js 빌드는 필요하지 않습니다.
 
-- 페이지: `public/index.html`
-- CSS: `public/pv-pump-detail/styles.css`
+- 시안 선택: `public/index.html`
+- 시안 01 / 기존 기본형: `public/pv-basic.html`, `public/pv-pump-detail/styles.css`
+- 시안 02 / V1 디자인형: `public/pv-v1.html`, `public/pv-pump-detail/v1-design.css`
+- 두 시안의 헤더 복귀 버튼: `public/pv-pump-detail/navigation.css`
 - 로고·제품 사진: `public/pv-pump-detail/assets/`
 - 영문 제목으로 수정한 카탈로그: `public/pv-pump-detail/catalogs/pv-series-piston-pumps.pdf`
 - 이전 V1~V3 선택 화면: `public/prototypes.html`
+
+두 시안 모두 제품 설명, 사진, 사양표와 하단 ‘자료 바로보기’ 버튼만 표시합니다. 버튼은 같은 카탈로그 PDF를 새 탭으로 직접 열고, 헤더의 ‘시안 선택’은 인덱스 페이지로 돌아갑니다. V1 디자인형은 독립된 HTML/CSS이며 기존 V1~V3 파일과 공용 스크립트를 사용하거나 수정하지 않습니다. 기존 기본형의 내용, 표 및 버튼 간격은 보존하고 복귀 버튼만 추가했습니다.
 
 이제 P**V 상세페이지 수정은 위 파일에서 진행합니다. 별도 `pv-pump-detail/dist/` 폴더는 이전 작업본이며 이 저장소의 배포에 사용하지 않습니다. 해당 폴더의 `.git`과 `.openai` 설정은 가져오지 않았습니다. 이미지·CSS·PDF 링크는 모두 상대경로이므로 GitHub Pages 프로젝트 경로에서도 연결됩니다.
 
