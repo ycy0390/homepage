@@ -1,5 +1,21 @@
 # 한국도키멕 홈페이지 프로토타입
 
+## 현재 GitHub Pages 첫 화면 — P**V 제품 상세
+
+GitHub Pages는 `.github/workflows/deploy-pages.yml`을 통해 `main` 브랜치의 `public/` 폴더를 그대로 배포합니다. 현재 첫 화면은 독립적으로 새로 만든 P**V 상세페이지입니다. Next.js 빌드는 필요하지 않습니다.
+
+- 페이지: `public/index.html`
+- CSS: `public/pv-pump-detail/styles.css`
+- 로고·제품 사진: `public/pv-pump-detail/assets/`
+- 영문 제목으로 수정한 카탈로그: `public/pv-pump-detail/catalogs/pv-series-piston-pumps.pdf`
+- 이전 V1~V3 선택 화면: `public/prototypes.html`
+
+이제 P**V 상세페이지 수정은 위 파일에서 진행합니다. 별도 `pv-pump-detail/dist/` 폴더는 이전 작업본이며 이 저장소의 배포에 사용하지 않습니다. 해당 폴더의 `.git`과 `.openai` 설정은 가져오지 않았습니다. 이미지·CSS·PDF 링크는 모두 상대경로이므로 GitHub Pages 프로젝트 경로에서도 연결됩니다.
+
+로컬에서 이 배포 결과를 확인하려면 저장소 루트에서 `python -m http.server 8080 --bind 127.0.0.1 --directory public`을 실행하고 `http://127.0.0.1:8080/`을 엽니다. 변경을 `main`에 push하면 기존 Pages 워크플로가 자동으로 배포합니다.
+
+아래는 보존된 기존 시안들의 실행 안내입니다.
+
 한국도키멕 홈페이지 개편을 검토하기 위한 **Next.js + JavaScript + Tailwind CSS** 프로젝트입니다. 3가지 React 시안(v1, v2, v3)과 각 시안의 순수 HTML 버전을 함께 제공합니다.
 
 ## 사용 기술
