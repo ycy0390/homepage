@@ -1,0 +1,10 @@
+/* SQP/SQPS 1연의 작동유별 표에만 적용한다. 공통 상세페이지 디자인은 그대로 공유한다. */
+.sqp-specification { min-width: 820px; font-size: .875rem; }
+.sqp-specification th, .sqp-specification td { padding: 8px 6px; }
+.sqp-specification thead th, .sqp-specification .unit { font-size: .8125rem; }
+.sqp-specification tbody th { white-space: nowrap; }
+.sqp-specification tbody + tbody tr:first-child > * { border-top: 2px solid #c3d5df; }
+/* 병합 셀 때문에 행의 마지막 태그가 표의 오른쪽 끝이 아닌 경우 구분선을 유지한다. */
+.sqp-specification thead tr:last-child > :last-child,
+.sqp-specification tbody tr > :last-child:not(.minimum-speed) { border-right: 1px solid var(--line); }
+.sqp-weight-specification { min-width: 480px; }

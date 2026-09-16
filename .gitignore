@@ -1,5 +1,5 @@
 # dependencies
-/node_modules
+**/node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -12,9 +12,12 @@
 /coverage
 
 # next.js
-/.next/
+**/.next/
 /.vinext/
 /out/
+
+# local archives
+/archive/
 
 # misc
 .DS_Store

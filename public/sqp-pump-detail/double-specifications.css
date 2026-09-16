@@ -1,0 +1,15 @@
+/* SQP/SQPS 2연의 사양표와 특성표에만 적용한다. */
+.sqp-double-specification { min-width: 790px; table-layout: fixed; font-size: .8125rem; line-height: 1.4; }
+.sqp-double-specification thead th { padding: 8px 4px; font-size: .8125rem; }
+.sqp-double-specification .unit { font-size: .8125rem; }
+.sqp-double-specification tbody th,
+.sqp-double-specification tbody td { padding: 0 4px; white-space: nowrap; }
+.sqp-double-specification th,
+.sqp-double-specification td { border-right: 1px solid var(--line); }
+.sqp-double-specification .end-column { border-right: 0; }
+.sqp-double-specification tbody + tbody tr:first-child > *,
+.sqp-double-specification .model-start { border-top: 2px solid #c3d5df; }
+.sqp-double-characteristics { min-width: 650px; }
+.sqp-double-characteristics tbody th { white-space: nowrap; }
+.sqp-double-characteristics tbody td:not(.end-column) { border-right: 1px solid var(--line); }
+.sqp-double-notes { padding-left: 0; list-style: none; }

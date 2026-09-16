@@ -1,24 +1,26 @@
-/* 두 P**V 시안에만 사용하는 선택 화면 복귀 버튼. */
-.proposal-return {
+/* 제품 상세페이지에서 제품 목록으로 돌아가는 버튼. */
+.site-header-inner { justify-content: space-between; }
+.product-list-return {
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   gap: 9px;
   min-height: 44px;
+  min-width: 160px;
   margin-left: auto;
   padding: 10px 17px;
-  border: 1px solid #b9cbd7;
-  border-radius: 2px;
+  border: 1px solid #234d70;
+  border-radius: 0;
   color: #234d70;
-  background: #fff;
   font-size: .9375rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.5;
   text-decoration: none;
   white-space: nowrap;
 }
-.proposal-return:hover { border-color: #234d70; background: #f0f6f9; }
-.proposal-return:focus-visible { outline: 3px solid #2679bd; outline-offset: 4px; }
+.product-list-return:hover { border-color: #075a9a; background: #eaf3fa; }
+.product-list-return:focus-visible { outline: 3px solid #2679bd; outline-offset: 4px; }
 @media (max-width: 600px) {
-  .proposal-return { gap: 6px; padding: 9px 12px; font-size: .875rem; }
+  .product-list-return { min-width: 140px; gap: 6px; padding: 9px 12px; font-size: .875rem; }
 }

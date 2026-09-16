@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="한국도키멕 P**V 제품 상세페이지의 두 가지 시안을 비교해 보세요."
+      content="한국도키멕 제품별 상세페이지에서 제품 설명, 사양과 카탈로그를 확인하세요."
     />
-    <title>P**V 상세페이지 시안 | 한국도키멕</title>
+    <title>제품별 상세페이지 리스트 | 한국도키멕</title>
     <style>
       :root {
         color: #15253a;
@@ -32,13 +32,14 @@
       }
 
       section {
-        width: min(720px, 100%);
+        width: min(1280px, 100%);
       }
 
       h1 {
         margin: 0 0 12px;
         font-size: clamp(30px, 5vw, 48px);
         letter-spacing: -0.07em;
+        word-break: keep-all;
       }
 
       p {
@@ -47,14 +48,18 @@
         font-size: 15px;
       }
 
-      nav {
+      .product-list {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 16px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
       }
 
       a {
         min-height: 160px;
+        height: 100%;
         display: grid;
         place-content: center;
         justify-items: center;
@@ -65,17 +70,33 @@
         color: inherit;
         font-size: clamp(28px, 4vw, 42px);
         font-weight: 800;
-        letter-spacing: -0.07em;
+        letter-spacing: 0.02em;
         text-decoration: none;
-        transition: transform 0.2s, background 0.2s, border-color 0.2s,
-          color 0.2s, box-shadow 0.2s;
+        transition:
+          transform 0.2s,
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s,
+          box-shadow 0.2s;
       }
 
-      a span { font-size: 14px; font-weight: 500; letter-spacing: .02em; }
+      a span {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+      }
 
-      a strong { font-size: clamp(24px, 4vw, 34px); font-weight: 700; }
+      a strong {
+        font-size: clamp(24px, 4vw, 34px);
+        font-weight: 700;
+        text-align: center;
+      }
 
-      @media (prefers-reduced-motion: reduce) { a { transition: none; } }
+      @media (prefers-reduced-motion: reduce) {
+        a {
+          transition: none;
+        }
+      }
 
       a:hover,
       a:focus-visible {
@@ -87,12 +108,18 @@
         outline: none;
       }
 
+      @media (max-width: 1100px) {
+        .product-list {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
       @media (max-width: 560px) {
         main {
           padding: 20px;
         }
 
-        nav {
+        .product-list {
           grid-template-columns: 1fr;
         }
 
@@ -105,11 +132,25 @@
   <body>
     <main>
       <section aria-labelledby="page-title">
-        <h1 id="page-title">P**V 제품 상세 시안</h1>
-        <p>확인할 상세페이지 시안을 선택하세요.</p>
-        <nav aria-label="홈페이지 시안 선택">
-          <a href="./pv-basic.html"><span>시안 01</span><strong>기본형</strong></a>
-          <a href="./pv-v1.html"><span>시안 02</span><strong>V1 디자인형</strong></a>
+        <h1 id="page-title">제품별 상세페이지 리스트</h1>
+        <p>상세페이지를 확인할 제품을 선택하세요</p>
+        <nav aria-label="제품별 상세페이지 목록">
+          <ul class="product-list">
+            <li>
+              <a href="./pv-v1.html"
+                ><span>제품 01</span><strong>P**V Series</strong></a
+              >
+            </li>
+            <li>
+              <a href="./ph.html"><span>제품 02</span><strong>PH Series</strong></a>
+            </li>
+            <li>
+              <a href="./sqp-sqps-single.html"><span>제품 03 · 1연 베인펌프</span><strong>SQP/SQPS Series</strong></a>
+            </li>
+            <li>
+              <a href="./sqp-sqps-double.html"><span>제품 04 · 2연 베인펌프</span><strong>SQP/SQPS Series</strong></a>
+            </li>
+          </ul>
         </nav>
       </section>
     </main>

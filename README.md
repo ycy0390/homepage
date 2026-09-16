@@ -1,277 +1,76 @@
-# 한국도키멕 홈페이지 프로토타입
+# 한국도키멕 제품별 상세페이지
 
-## 현재 GitHub Pages 첫 화면 — P**V 상세페이지 시안 선택
+V1 디자인형으로 확정된 디자인을 사용하는 제품 상세페이지와 목록을 관리하는 정적 HTML 프로젝트입니다.
+현재 제품은 P**V와 PH 두 개이며, 제품이 추가되면 목록에 카드를 추가합니다.
 
-GitHub Pages는 `.github/workflows/deploy-pages.yml`을 통해 `main` 브랜치의 `public/` 폴더를 그대로 배포합니다. 첫 화면에서 아래 두 상세페이지 시안을 선택합니다. Next.js 빌드는 필요하지 않습니다.
-
-- 시안 선택: `public/index.html`
-- 시안 01 / 기존 기본형: `public/pv-basic.html`, `public/pv-pump-detail/styles.css`
-- 시안 02 / V1 디자인형: `public/pv-v1.html`, `public/pv-pump-detail/v1-design.css`
-- 두 시안의 헤더 복귀 버튼: `public/pv-pump-detail/navigation.css`
-- 로고·제품 사진: `public/pv-pump-detail/assets/`
-- 영문 제목으로 수정한 카탈로그: `public/pv-pump-detail/catalogs/pv-series-piston-pumps.pdf`
-- 이전 V1~V3 선택 화면: `public/prototypes.html`
-
-두 시안 모두 제품 설명, 사진, 사양표와 하단 ‘자료 바로보기’ 버튼만 표시합니다. 버튼은 같은 카탈로그 PDF를 새 탭으로 직접 열고, 헤더의 ‘시안 선택’은 인덱스 페이지로 돌아갑니다. V1 디자인형은 독립된 HTML/CSS이며 기존 V1~V3 파일과 공용 스크립트를 사용하거나 수정하지 않습니다. 기존 기본형의 내용, 표 및 버튼 간격은 보존하고 복귀 버튼만 추가했습니다.
-
-이제 P**V 상세페이지 수정은 위 파일에서 진행합니다. 별도 `pv-pump-detail/dist/` 폴더는 이전 작업본이며 이 저장소의 배포에 사용하지 않습니다. 해당 폴더의 `.git`과 `.openai` 설정은 가져오지 않았습니다. 이미지·CSS·PDF 링크는 모두 상대경로이므로 GitHub Pages 프로젝트 경로에서도 연결됩니다.
-
-로컬에서 이 배포 결과를 확인하려면 저장소 루트에서 `python -m http.server 8080 --bind 127.0.0.1 --directory public`을 실행하고 `http://127.0.0.1:8080/`을 엽니다. 변경을 `main`에 push하면 기존 Pages 워크플로가 자동으로 배포합니다.
-
-아래는 보존된 기존 시안들의 실행 안내입니다.
-
-한국도키멕 홈페이지 개편을 검토하기 위한 **Next.js + JavaScript + Tailwind CSS** 프로젝트입니다. 3가지 React 시안(v1, v2, v3)과 각 시안의 순수 HTML 버전을 함께 제공합니다.
-
-## 사용 기술
-
-- Next.js 16 App Router
-- React 19
-- JavaScript (ES Modules)
-- Tailwind CSS 4
-
-React 화면의 스타일은 각 `.js` 파일의 Tailwind `className`으로 작성되어 있습니다. [`src/app/tailwind.css`](./src/app/tailwind.css)는 Tailwind를 불러오는 `@import "tailwindcss";` 한 줄만 포함합니다.
-
-> 순수 HTML 문서는 `public/html`, 전용 CSS는 `public/static/css`, JavaScript는 `public/static/js`로 분리되어 있습니다. 이 CSS와 JS는 Next.js/Tailwind 화면에는 적용되지 않습니다.
-
-## 빠른 실행
-
-### 1. 준비물
-
-- Node.js 22.13.0 이상
-- npm
-
-설치 여부는 PowerShell에서 다음과 같이 확인합니다.
-
-```powershell
-node --version
-npm --version
-```
-
-### 2. 프로젝트 설치
-
-이 README가 있는 폴더에서 실행합니다.
-
-```powershell
-npm install
-```
-
-### 3. 개발 서버 실행
-
-```powershell
-npm run dev
-```
-
-브라우저에서 다음 주소를 엽니다.
+## 현재 파일 구조
 
 ```text
-http://localhost:3000
+homepage-main/
+├─ public/                              GitHub Pages 배포 대상
+│  ├─ index.html                        제품별 상세페이지 리스트
+│  ├─ pv-v1.html                        P**V 제품 상세페이지
+│  ├─ ph.html                           PH 제품 상세페이지
+│  ├─ ph-pump-detail/
+│  │  ├─ assets/                        PH 제품 사진
+│  │  └─ catalogs/                      PH 원본 PDF와 16페이지 미리보기
+│  └─ pv-pump-detail/
+│     ├─ v1-design.css                  P**V·PH 공통 상세페이지 디자인
+│     ├─ navigation.css                 공통 제품 목록 보기 버튼
+│     ├─ assets/                        로고와 제품 사진
+│     └─ catalogs/
+│        ├─ pv-series-piston-pumps.pdf   원본 카탈로그
+│        └─ pv-preview/                 22페이지 미리보기 이미지
+├─ scripts/
+│  └─ render-pv-catalog-preview.py       PDF 미리보기 갱신 도구
+├─ archive/                             기존 시안·백업 보관함, 배포 제외
+│  ├─ legacy-homepage/                  이전 Node.js/HTML V1~V3와 기본형
+│  ├─ backups/                          이전에 요청한 백업
+│  ├─ manifest-sha256.json              보관 파일 검증 기록
+│  └─ README.md                         이전 시안 실행·복원 안내
+└─ .github/workflows/deploy-pages.yml   GitHub Pages 배포 설정
 ```
 
-터미널을 닫거나 `Ctrl+C`를 누르면 서버가 종료됩니다. 서버를 계속 사용할 때는 해당 터미널을 그대로 열어 두십시오.
+`pv-v1.html`과 `v1-design.css`라는 파일명은 기존 상세페이지 URL과 연결을 유지하기 위해 그대로 사용합니다. PH도 동일한 CSS와 로고를 사용하며, 제품 이미지와 카탈로그만 `ph-pump-detail/`에 분리했습니다. 목록에는 `제품 01 / P**V`, `제품 02 / PH` 카드를 표시합니다.
 
-3000번 포트를 다른 프로그램이 사용 중이면 다른 포트로 실행할 수 있습니다.
+## 로컬 확인
+
+이 README가 있는 프로젝트 루트에서 실행합니다.
 
 ```powershell
-npm run dev -- --port 3001
+python -m http.server 4180 --bind 127.0.0.1 --directory public
 ```
 
-이때 주소는 `http://localhost:3001`입니다.
+- 제품 목록: `http://127.0.0.1:4180/`
+- P**V 상세페이지: `http://127.0.0.1:4180/pv-v1.html`
+- PH 상세페이지: `http://127.0.0.1:4180/ph.html`
 
-## Next.js 시안별 주소
+현재 페이지는 HTML/CSS와 이미지로 구성되어 Node.js 설치나 빌드가 필요하지 않습니다.
 
-### v1 — 제품 목록과 공통 상세 시안
+## 화면과 카탈로그 수정
 
-| 화면 | 주소 |
-|---|---|
-| 제품 목록 | `http://localhost:3000/v1` |
-| P**V 제품 상세 | `http://localhost:3000/v1/products/hydraulics/pumps/piston-pumps/pv-series` |
-| PH 제품 상세 | `http://localhost:3000/v1/products/hydraulics/pumps/piston-pumps/ph-series` |
-| 베인 펌프 제품 상세 예시 | `http://localhost:3000/v1/products/hydraulics/pumps/vane-pumps/sqp-sqps-single` |
+- 목록의 문구와 제품 카드: `public/index.html`
+- 제품 설명·사양표·카탈로그 버튼: `public/pv-v1.html`, `public/ph.html`
+- 상세페이지 디자인과 모바일 레이아웃: `public/pv-pump-detail/v1-design.css`
+- 헤더의 `← 제품 목록 보기` 버튼: `public/pv-pump-detail/navigation.css`
 
-### v2 — 산업용 제품 카탈로그 시안
+카탈로그는 PC와 모바일에서 이미지 미리보기로 표시하고, ‘자료 바로보기’ 버튼으로 원본 PDF를 새 탭에 엽니다. 미리보기는 800px/1600px WebP를 화면에 맞춰 지연 로딩합니다.
 
-| 화면 | 주소 |
-|---|---|
-| 홈 | `http://localhost:3000/v2` |
-| 제품 목록 | `http://localhost:3000/v2/products` |
-| P**V 제품 상세 | `http://localhost:3000/v2/products/pv-series` |
-| PH 제품 상세 | `http://localhost:3000/v2/products/ph-series` |
-
-### v3 — 기존 한국도키멕 홈페이지 기반 시안
-
-| 화면 | 주소 |
-|---|---|
-| 홈 | `http://localhost:3000/v3` |
-| 사업&제품정보 목록 | `http://localhost:3000/v3/business-products` |
-| P**V 제품 상세 | `http://localhost:3000/v3/business-products/pv-series` |
-| PH 제품 상세 | `http://localhost:3000/v3/business-products/ph-series` |
-| 고객지원 | `http://localhost:3000/v3/customer-support` |
-| 인재채용 | `http://localhost:3000/v3/recruit` |
-| 회사소개 | `http://localhost:3000/v3/company` |
-
-Next.js 버전 선택 화면은 `http://localhost:3000/`입니다. 기존 `/products`, `/products/[제품-slug]`, `/ph-series` 및 기존 v1의 단축 상세 주소는 각각 새 v1 주소로 자동 이동합니다.
-
-## 순수 HTML 버전 실행
-
-HTML 버전은 Next.js를 사용하지 않는 별도 결과물입니다. 두 가지 방법으로 볼 수 있습니다.
-
-### 방법 A — Next.js 개발 서버에서 보기
-
-`npm run dev`가 실행 중이면 다음 주소를 사용합니다.
-
-| 버전 | 시작 주소 |
-|---|---|
-| HTML v1 | `http://localhost:3000/html/v1/products.html` |
-| HTML v2 | `http://localhost:3000/html/v2/index.html` |
-| HTML v3 | `http://localhost:3000/html/v3/index.html` |
-
-### 방법 B — HTML 파일만 별도 서버로 보기
-
-프로젝트 폴더에서 다음 명령을 실행합니다.
+PDF를 교체했다면 Pillow와 Poppler가 설치된 환경에서 다음 명령으로 이미지와 HTML 페이지 목록을 갱신합니다.
 
 ```powershell
-npx serve public -l 8080
+python scripts/render-pv-catalog-preview.py
+python scripts/render-pv-catalog-preview.py --product ph
 ```
 
-그다음 아래 주소로 접속합니다.
+첫 명령은 P**V, 두 번째 명령은 PH만 갱신합니다. 이 도구는 원본 PDF를 수정하지 않습니다. PH 제품 사진과 PDF는 아카이브 자료를 그대로 복사했으며, 기본 사양과 주의사항은 PH 카탈로그 A-21(파일 6페이지)에 맞춰 작성했습니다.
 
-```text
-http://localhost:8080/html/v1/products.html
-http://localhost:8080/html/v2/index.html
-http://localhost:8080/html/v3/index.html
-```
+## 배포
 
-HTML 파일은 이미지·CSS·JavaScript·PDF를 상대경로로 연결하므로 탐색기에서 `public/html/v1/products.html`, `v2/index.html`, `v3/index.html`을 더블클릭해도 표시됩니다. 다만 브라우저의 보안 정책에 따라 PDF iframe이 제한될 수 있으며, 그 경우 PDF 다운로드 링크를 사용하거나 위와 같이 로컬 서버로 여십시오.
+GitHub Pages는 `.github/workflows/deploy-pages.yml`을 통해 `main` 브랜치의 **`public/`만** 배포합니다. 이 폴더나 워크플로 변경을 push하면 배포가 실행됩니다. Next.js 빌드는 실행하지 않습니다.
 
-### 방법 C - HHTML 파일 직접 실행
+이미지·CSS·PDF와 페이지 링크는 모두 상대경로를 사용하므로 GitHub Pages의 프로젝트 경로에서도 연결됩니다. `archive/`와 `scripts/`는 배포되지 않습니다.
 
-프로젝트 폴더 기준 public/
+## 이전 시안과 백업
 
-## 배포용 빌드와 실행
-
-개발 서버가 아니라 실제 배포와 가까운 상태로 확인하려면 다음 순서로 실행합니다.
-
-```powershell
-npm run build
-npm start
-```
-
-다른 포트로 프로덕션 서버를 열려면 다음 명령을 사용합니다.
-
-```powershell
-npm start -- --port 3001
-```
-
-## 카탈로그 PDF 관리
-
-제품용 PDF는 `public/catalogs`에 있습니다.
-
-| 파일 | 용도 |
-|---|---|
-| `pv-series-piston-pumps.pdf` | P**V 시리즈 1~20페이지 |
-| `ph-series-piston-pumps.pdf` | PH 시리즈 21페이지 이후를 분리한 문서 |
-| `variable-displacement-piston-pumps.pdf` | 분리 전 원본 보관본 |
-
-`public` 폴더의 파일은 웹 주소에서 `public`을 제외하고 접근합니다. 예를 들어:
-
-```text
-public/catalogs/pv-series-piston-pumps.pdf
-→ http://localhost:3000/catalogs/pv-series-piston-pumps.pdf
-```
-
-PDF 파일을 같은 이름으로 교체하면 기존 링크를 수정하지 않아도 새 카탈로그가 표시됩니다. 파일명을 변경하면 `src/app` 아래 제품 데이터의 `catalog` 값과 정적 HTML의 링크도 함께 수정해야 합니다.
-
-## 주요 폴더 구조
-
-```text
-piston-pump-demo/
-├─ src/
-│  ├─ app/                     # Next.js 페이지와 공통 UI
-│  │  ├─ page.js               # 흰 배경의 V1 · V2 · V3 선택 화면
-│  │  ├─ v1/
-│  │  │  ├─ page.js           # /v1 제품소개 목록 진입점
-│  │  │  ├─ components/       # 제품 목록·공통 제품 상세 UI
-│  │  │  └─ products/[system]/[group]/[category]/[slug]/page.js
-│  │  │                         # 모든 v1 제품 상세의 단일 동적 진입점
-│     ├─ v2/                   # v2 홈, 목록, 상세
-│     ├─ v3/                   # v3 홈, 제품, 고객지원, 채용, 회사소개
-│     ├─ layout.js             # 공통 HTML 구조 및 body Tailwind 스타일
-│     └─ tailwind.css          # Tailwind 불러오기 한 줄
-│  └─ data/products/           # 제품군별 데이터와 전체 제품 색인
-│     ├─ piston-series.js      # P**V · PH 데이터
-│     ├─ catalog-products.js   # 카탈로그 기반 제품 데이터
-│     └─ index.js              # URL 생성·제품 조회의 단일 진입점
-├─ public/
-│  ├─ catalogs/                # PDF 카탈로그
-│  ├─ html/                    # 순수 HTML 문서
-│  │  ├─ v1/
-│  │  ├─ v2/
-│  │  └─ v3/
-│  ├─ static/
-│  │  ├─ css/                  # HTML v1·v2·v3 전용 CSS
-│  │  └─ js/                   # HTML v1·v2·v3 전용 JavaScript
-│  └─ ...                      # 로고와 제품/회사 이미지
-├─ next.config.js
-├─ postcss.config.mjs
-└─ package.json
-```
-
-## 화면 수정 방법
-
-- 루트 버전 선택 화면: `src/app/page.js`
-- v1 제품소개 목록 UI: `src/app/v1/components/ProductListPage.js`
-- v1 공통 제품 상세 레이아웃: `src/app/v1/components/ProductPage.js`
-- P**V·PH 제품 데이터: `src/data/products/piston-series.js`
-- 카탈로그 제품 데이터: `src/data/products/catalog-products.js`
-- 모든 v1 제품 URL·검색: `src/data/products/index.js`
-- 모든 v1 제품 상세의 공통 진입점: `src/app/v1/products/[system]/[group]/[category]/[slug]/page.js`
-- v2 공통 헤더·카드·상세: `src/app/v2/components.js`
-- v3 공통 헤더·하단: `src/app/v3/components.js`
-- v3 제품 데이터: `src/app/v3/business-products/data.js`
-- v3 제품 상세 레이아웃: `src/app/v3/business-products/ProductDetail.js`
-- 기술 문의 폼: `src/app/v1/components/InquiryForm.js`
-
-Tailwind 스타일은 JSX 요소의 `className`에서 수정합니다.
-
-```tsx
-<a className="bg-[#075a9a] px-5 py-3 font-bold text-white hover:bg-[#064d83]">
-  PDF 다운로드
-</a>
-```
-
-화면 폭에 따른 스타일은 `max-[760px]:` 접두사를 사용합니다.
-
-```tsx
-<div className="grid grid-cols-2 max-[760px]:grid-cols-1">
-```
-
-## 기술 문의 기능
-
-현재 별도 서버나 데이터베이스가 없어 문의 폼은 입력 내용을 이메일 본문으로 만들어 사용자의 기본 이메일 프로그램을 엽니다. 문의가 자동 접수되거나 서버에 저장되는 방식은 아닙니다.
-
-실제 홈페이지에서 자동 접수를 구현하려면 이후 아래 중 하나가 필요합니다.
-
-- 회사 메일 발송 API
-- 폼 처리 서비스
-- 별도 백엔드와 데이터베이스
-
-## 자주 발생하는 문제
-
-### `localhost:3000`에 접속되지 않음
-
-1. `npm run dev`를 실행한 터미널이 열려 있는지 확인합니다.
-2. 터미널에 오류가 없는지 확인합니다.
-3. 3000번이 사용 중이면 `npm run dev -- --port 3001`로 실행합니다.
-4. 휴대폰에서 접속하려면 PC와 휴대폰이 같은 내부 네트워크에 있어야 하며 Windows 방화벽 허용도 필요합니다. 회사 유선망과 Wi-Fi가 서로 분리된 환경에서는 같은 사무실이어도 접속되지 않을 수 있습니다.
-
-### 수정 후 스타일이 바로 반영되지 않음
-
-개발 서버가 켜진 상태에서 저장하면 보통 자동 반영됩니다. 반영되지 않으면 브라우저에서 강력 새로고침(`Ctrl+F5`)을 실행하십시오.
-
-## 확인된 빌드 상태
-
-아래 명령으로 Next.js 프로덕션 빌드와 모든 App Router 경로의 정적 생성을 확인했습니다.
-
-```powershell
-npm run build
-```
+이전 Node.js 및 HTML V1~V3, 시안 01 기본형, 실행 설정, 이미지·PDF, 기존 문서와 백업을 `archive/`에 모았습니다. 파일 내용과 의존 경로를 보존했으며 자세한 위치와 실행 방법은 [보관함 안내](archive/README.md)를 참고하세요.
